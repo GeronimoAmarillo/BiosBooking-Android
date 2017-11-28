@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">BiosBooking (Android)</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="manejo_de_movimientos">Manejo de movimientos</string>
+    <string name="obra">Obra</string>
+    <string name="material">Material</string>
+    <string name="stock_material">Stock Material</string>
+    <string name="ingrese_la_observacion">Ingrese la observacion</string>
+    <string name="ingrese_la_cantidad_de_material">Ingrese la cantidad de material</string>
+    <string name="nombre_material">Nombre Material</string>
+    <string name="stock">Stock</string>
+    <string name="agregar_material_a_obra">Agregar Material a Obra</string>
+</resources>
