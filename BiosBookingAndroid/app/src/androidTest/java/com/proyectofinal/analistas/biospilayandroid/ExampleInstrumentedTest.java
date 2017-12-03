@@ -1,4 +1,4 @@
-package com.proyectofinal.analistas.biosbookingandroid;
+package com.proyectofinal.analistas.biospilayandroid;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

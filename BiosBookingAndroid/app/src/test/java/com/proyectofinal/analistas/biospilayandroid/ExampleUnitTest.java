@@ -1,4 +1,4 @@
-package com.proyectofinal.analistas.biosbookingandroid;
+package com.proyectofinal.analistas.biospilayandroid;
 
 import org.junit.Test;
 

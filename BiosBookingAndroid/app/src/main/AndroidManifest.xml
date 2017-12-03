@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.proyectofinal.analistas.biosbookingandroid">
+    package="com.proyectofinal.analistas.biospilayandroid">
 
     <application
         android:allowBackup="true"
@@ -9,23 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ObraDetailActivity" />
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.ObraDetailActivity" />
         <activity
             android:name=".FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".AddMaterialActivity"/>
-        <activity android:name=".MaterialListActivity" />
-        <activity android:name=".MovimientosActivity" />
-        <activity android:name=".MaterialInformationActivity"></activity>
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.AddMaterialActivity"/>
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialListActivity" />
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MovimientosActivity" />
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialInformationActivity"></activity>
     </application>
 
 </manifest>

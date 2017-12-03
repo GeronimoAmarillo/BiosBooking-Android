@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.proyectofinal.analistas.biosbookingandroid.MaterialInfoFragment">
+    tools:context="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.constraint.ConstraintLayout

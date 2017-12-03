@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context="com.proyectofinal.analistas.biosbookingandroid.MovimientosActivity">
+    tools:context="com.proyectofinal.analistas.biospilayandroid.Activities.MovimientosActivity">
 
     <TextView
         android:id="@+id/tvPideObservacion"
