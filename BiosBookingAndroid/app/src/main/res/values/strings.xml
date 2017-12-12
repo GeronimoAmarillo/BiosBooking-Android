@@ -16,4 +16,8 @@
     <string name="nombre_material">Nombre Material</string>
     <string name="stock">Stock</string>
     <string name="agregar_material_a_obra">Agregar Material a Obra</string>
+    <string name="realizar_movimiento">Realizar movimiento</string>
+    <string name="baja_de_stock">Baja de stock?</string>
+    <string name="ingrese_cantidad">Ingrese Cantidad</string>
+    <string name="ingrese_observacion">Ingrese Observacion</string>
 </resources>

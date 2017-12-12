@@ -8,17 +8,6 @@
     tools:context="com.proyectofinal.analistas.biospilayandroid.Activities.MovimientosActivity">
 
     <TextView
-        android:id="@+id/tvPideObservacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_margin="8dp"
-        android:text="@string/ingrese_la_observacion"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPideCantidad" />
-
-    <TextView
         android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,29 +56,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMaterial" />
 
-    <TextView
-        android:id="@+id/tvPideCantidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/ingrese_la_cantidad_de_material"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTipoMovimiento" />
-
     <EditText
         android:id="@+id/etCantidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="@string/ingrese_cantidad"
         android:inputType="number"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/tvPideCantidad"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTipoMovimiento" />
 
     <EditText
@@ -97,13 +77,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="text"
+        android:hint="@string/ingrese_observacion"
+        android:inputType="text|textMultiLine"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/tvPideCantidad"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCantidad" />
 
     <Button
@@ -113,16 +94,17 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Realizar movimiento"
+        android:text="@string/realizar_movimiento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etObservacion" />
+        app:layout_constraintTop_toBottomOf="@+id/etObservacion"
+        android:onClick="RealizarMovimientoOnClick"/>
 
     <TextView
         android:id="@+id/tvTipoMovimiento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Baja de stock?"
+        android:text="@string/baja_de_stock"
         tools:layout_editor_absoluteX="118dp"
         tools:layout_editor_absoluteY="339dp"
         android:layout_margin="8dp"
@@ -140,5 +122,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvTipoMovimiento"
         app:layout_constraintTop_toBottomOf="@id/tvStock" />
+
 
 </android.support.constraint.ConstraintLayout>
