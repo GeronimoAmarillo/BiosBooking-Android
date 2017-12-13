@@ -30,4 +30,7 @@ public class DTMovimiento {
         this.observacion = observacion;
         this.cantidad = cantidad;
     }
+    public DTMovimiento() {
+        this("sin observacion", 0);
+    }
 }
