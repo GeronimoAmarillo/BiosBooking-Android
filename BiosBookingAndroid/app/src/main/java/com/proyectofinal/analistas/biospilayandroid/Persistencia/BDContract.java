@@ -29,7 +29,7 @@ public class BDContract {
         public static final String COLUMNA_DIRECCION = "Direccion";
         public static final String COLUMNA_FOTO = "Foto";
 
-        public static final String[] COLUMNAS = { _ID, COLUMNA_FECHA_CONTRATO, COLUMNA_METROS_CUADRADOS, COLUMNA_NOMBRE_CLIENTE, COLUMNA_DIRECCION, COLUMNA_FOTO };
+        public static final String[] COLUMNAS = { _ID, COLUMNA_FECHA_CONTRATO, COLUMNA_METROS_CUADRADOS};/*, COLUMNA_NOMBRE_CLIENTE, COLUMNA_DIRECCION, COLUMNA_FOTO };*/
 
         public static final String SQL_CREAR_TABLA = new StringBuilder("CREATE TABLE ").append(TABLA_OBRA).append(" (")
                 .append(_ID).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")

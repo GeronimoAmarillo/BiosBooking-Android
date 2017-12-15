@@ -3,34 +3,55 @@ package com.proyectofinal.analistas.biospilayandroid.Activities;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMaterial;
+import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDContract;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link GridObrasFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
+
 public class GridObrasFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private SimpleCursorAdapter adaptadorObras;
+
+
+    protected GridView lvObras;
 
     public GridObrasFragment() {
-        // Required empty public constructor
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_grid_obras, container, false);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ControladorMaterial controlador = new ControladorMaterial();
+
+        lvObras=(GridView)getView().findViewById(R.id.gvObras);
+
+        adaptadorObras = new SimpleCursorAdapter(this, R.layout.fragment_grid_obras,controlador.listarObras(), BDContract.Obras.COLUMNAS, new int[] { R.id.tvIdObra, R.id.,R.id.tvDireccionObra,}, 0);
+        lvObras.setAdapter(adaptadorObras);
+
+
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
