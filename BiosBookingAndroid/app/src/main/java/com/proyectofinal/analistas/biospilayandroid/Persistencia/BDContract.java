@@ -2,6 +2,8 @@ package com.proyectofinal.analistas.biospilayandroid.Persistencia;
 
 import android.provider.BaseColumns;
 
+import com.proyectofinal.analistas.biospilayandroid.Logica.Material;
+
 /**
  * Created by Geronimo on 03/12/2017.
  */
@@ -41,9 +43,10 @@ public class BDContract {
 
         public static final String SQL_ELIMINAR_TABLA = new StringBuilder("DROP TABLE IF EXISTS ").append(TABLA_OBRA).append(";").toString();
 
-        public static final String SQL_INSERTAR_DATOS_INICIALES = new StringBuilder("INSERT INTO ").append(TABLA_OBRA).append(" VALUES (2017-11-21 14: 35: 00.000, 1000, Pepe Chulo, Avenida Siempre Viva 1234, .../ruta.jpg);")
-                .append("INSERT INTO ").append(TABLA_OBRA).append(" VALUES (2017-11-21 14: 35: 00.000, 750, Roberto Gomez, 21 Jump Street, .../ruta.jpg);")
-                .append("INSERT INTO ").append(TABLA_OBRA).append(" VALUES (2017-11-21 14: 35: 00.000, 800, Mary Curie, LaCalle Pou, .../ruta.jpg);").toString();
+        public static final String SQL_INSERTAR_DATOS_INICIALES = new StringBuilder("INSERT INTO ").append(TABLA_OBRA). append("(" + _ID + ", " + COLUMNA_FECHA_CONTRATO+", " + COLUMNA_METROS_CUADRADOS +", "+ COLUMNA_NOMBRE_CLIENTE+", "+COLUMNA_DIRECCION+", "+COLUMNA_FOTO+") VALUES ")
+                .append("(NULL, '2017-11-21', 1000, 'Pepe' , 'Yi 123', 'rutaFoto'),")
+                .append("(NULL, 2017-11-21, 750, 'Roberto Gomez', '21 Jump Street', 'fotoRuta'),")
+                .append("(NULL, 2017-11-21, 800, 'Mary Curie', 'LaCalle Pou', 'fotoRuta');").toString();
 
     }
 
@@ -60,10 +63,11 @@ public class BDContract {
         public static final String SQL_CREAR_TABLA = new StringBuilder("CREATE TABLE ").append(TABLA_MATERIAL).append(" (")
                 .append(COLUMNA_STOCK).append(" INTEGER NOT NULL, ")
                 .append(COLUMNA_NOMBRE).append(" TEXT NOT NULL, ")
-                .append(COLUMNA_FECHA_ALTA).append(" TEXT NOT NULL), ")
+                .append(COLUMNA_FECHA_ALTA).append(" TEXT NOT NULL, ")
                 .append(COLUMNA_DESCRIPCION).append(" TEXT NOT NULL, ")
-                .append(COLUMNA_OBRA).append(" INTEGER NOT NULL FOREIGN KEY REFERENCES " + TABLA_OBRA + "("+ Obras._ID +")")
-                .append("PRIMARY KEY ("+ COLUMNA_NOMBRE +", "+ COLUMNA_OBRA +");").toString();
+                .append(COLUMNA_OBRA).append(" INTEGER NOT NULL, ")
+                .append("FOREIGN KEY (").append(COLUMNA_OBRA + ")").append(" REFERENCES " + TABLA_OBRA + "("+ Obras._ID +"), ")
+                .append("PRIMARY KEY ("+ COLUMNA_NOMBRE +", "+ COLUMNA_OBRA +"));").toString();
 
         public static final String SQL_ELIMINAR_TABLA = new StringBuilder("DROP TABLE IF EXISTS ").append(TABLA_MATERIAL).append(";").toString();
 
@@ -80,13 +84,15 @@ public class BDContract {
         public static final String[] COLUMNAS = {_ID, COLUMNA_CANTIDAD, COLUMNA_OBSERVACION, COLUMNA_MATERIAL, COLUMNA_OBRA, COLUMNA_FECHA_MOVIMIENTO};
 
         public static final String SQL_CREAR_TABLA = new StringBuilder("CREATE TABLE ").append(TABLA_MOVIMIENTO).append(" (")
-                .append(_ID).append("INTEGER NOT NULL, ")
+                .append(_ID).append(" INTEGER NOT NULL, ")
                 .append(COLUMNA_CANTIDAD).append(" INTEGER NOT NULL, ")
                 .append(COLUMNA_OBSERVACION).append(" TEXT NOT NULL, ")
-                .append(COLUMNA_MATERIAL).append(" INTEGER NOT NULL FOREIGN KEY REFERENCES " + TABLA_MATERIAL + " ( " + Materiales.COLUMNA_NOMBRE + "), ")
-                .append(COLUMNA_OBRA).append(" INTEGER NOT NULL FOREIGN KEY REFERENCES " + TABLA_MATERIAL + "( " + Materiales.COLUMNA_OBRA + "),")
+                .append(COLUMNA_MATERIAL).append(" INTEGER NOT NULL, ")
+                .append(COLUMNA_OBRA).append(" INTEGER NOT NULL, ")
                 .append(COLUMNA_FECHA_MOVIMIENTO).append(" TEXT NOT NULL, ")
-                .append("PRIMARY KEY ("+ COLUMNA_OBRA +", " + COLUMNA_MATERIAL +", " + _ID + " );").toString();
+                .append("FOREIGN KEY (").append(COLUMNA_MATERIAL + ")").append(" REFERENCES " + TABLA_MATERIAL + "("+ Materiales.COLUMNA_NOMBRE +"), ")
+                .append("FOREIGN KEY (").append(COLUMNA_OBRA + ")").append(" REFERENCES " + TABLA_MATERIAL + "("+ Materiales.COLUMNA_OBRA + "), ")
+                .append("PRIMARY KEY ("+ COLUMNA_MATERIAL +", "+ COLUMNA_OBRA +", " + _ID +"));").toString();
 
 
         public static final String SQL_ELIMINAR_TABLA = new StringBuilder("DROP TABLE IF EXISTS ").append(TABLA_MATERIAL).append(";").toString();

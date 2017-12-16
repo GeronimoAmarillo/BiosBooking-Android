@@ -23,8 +23,6 @@ public class BDHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(BDContract.Obras.SQL_CREAR_TABLA);
 
-        db.execSQL(BDContract.Obras.SQL_INSERTAR_DATOS_INICIALES);
-
         db.execSQL(BDContract.Materiales.SQL_CREAR_TABLA);
 
         db.execSQL(BDContract.Movimientos.SQL_CREAR_TABLA);
