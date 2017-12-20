@@ -17,11 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.ObraDetailActivity" />
-        <activity
-            android:name=".FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen"
-            android:theme="@style/FullscreenTheme" />
         <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.AddMaterialActivity"/>
         <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialListActivity" />
         <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MovimientosActivity" />
