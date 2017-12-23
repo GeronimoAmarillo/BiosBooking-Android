@@ -29,6 +29,6 @@ public class ObraDetailActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        frgDetalleObra.mostrarObra(obra);
+        frgDetalleObra.mostrarObra();
     }
 }

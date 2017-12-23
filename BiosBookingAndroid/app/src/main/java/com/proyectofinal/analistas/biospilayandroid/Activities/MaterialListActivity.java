@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
@@ -14,7 +15,6 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
     public static final String EXTRA_MATERIAL = "EXTRA_MATERIAL";
     public static final String OBRA_DUEÑA_EXTRA = "OBRA_DUEÑA_EXTRA";
 
-    public DtObra obra;
     String mensaje;
     private MaterialesListFragment frgMaterialesList;
 
@@ -26,12 +26,15 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
         frgMaterialesList = (MaterialesListFragment) getSupportFragmentManager().findFragmentById(R.id.frgMaterialesList);
 
         Bundle extras = getIntent().getExtras();
-        obra = (DtObra) extras.getSerializable("Obra");
 
-        mensaje = extras.getString("MENSAJE");
+        if(extras != null){
+            if(extras.getString("MENSAJE") != null){
+                mensaje = extras.getString("MENSAJE");
+            }
 
-        if(mensaje != null){
-            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+            if(mensaje != null){
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -40,26 +43,21 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
     protected void onStart() {
         super.onStart();
 
-        frgMaterialesList.listarMateriales(obra);
+        frgMaterialesList.listarMateriales();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-    }
 
     @Override
-    public void onMaterialSeleccionado(DTMaterial material, int idObra) {
+    public void onMaterialSeleccionado(DTMaterial material) {
 
         MaterialInfoFragment frgDetalleMaterial = (MaterialInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleMaterial);
 
+        ControladorGral.SeleccionarMaterial(material.getNombre());
+
         if (frgDetalleMaterial != null) {
-            frgDetalleMaterial.mostrarMaterial(material, idObra);
+            frgDetalleMaterial.mostrarMaterial(material);
         } else {
             Intent intencionDetalleMaterial = new Intent(this, MaterialInformationActivity.class);
-            intencionDetalleMaterial.putExtra(OBRA_DUEÑA_EXTRA, idObra);
             intencionDetalleMaterial.putExtra(EXTRA_MATERIAL, material);
 
             startActivity(intencionDetalleMaterial);

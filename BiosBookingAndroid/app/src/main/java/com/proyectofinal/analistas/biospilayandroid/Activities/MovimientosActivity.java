@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMovimiento;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
@@ -29,9 +30,6 @@ public class MovimientosActivity extends AppCompatActivity {
     protected EditText etCantidad;
     protected EditText etObservacion;
 
-    protected int idObra;
-    protected DTMaterial material;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +44,9 @@ public class MovimientosActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        material = (DTMaterial)extras.getSerializable("Material");
-        idObra = extras.getInt("IdObra");
-
-        tvIdObra.setText(String.valueOf(idObra));
-        tvNombreMaterial.setText(material.getNombre());
-        tvStock.setText(String.valueOf(material.getStock()));
+        tvIdObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+        tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
+        tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
     }
 
     public void RealizarMovimientoOnClick(View v){
@@ -144,10 +139,7 @@ public class MovimientosActivity extends AppCompatActivity {
             intencion.putExtra("MENSAJE", "Se produjo un error al intentar registrar el movimiento!.");
         }
 
-        material.getMovimientos().add(datosMovimiento);
-
-        intencion.putExtra(MaterialListActivity.EXTRA_MATERIAL, material);
-        intencion.putExtra(MaterialListActivity.OBRA_DUEÑA_EXTRA, idObra);
+        ControladorGral.actualizarRepositorio(bd);
 
         startActivity(intencion);
 

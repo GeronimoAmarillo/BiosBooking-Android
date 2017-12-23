@@ -15,7 +15,6 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
 
     private MaterialInfoFragment frgMaterialInfo;
     DTMaterial material;
-    int idObra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,6 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
         Bundle extras = getIntent().getExtras();
 
         material = (DTMaterial)extras.getSerializable(MaterialListActivity.EXTRA_MATERIAL);
-        idObra = extras.getInt(MaterialListActivity.OBRA_DUEÑA_EXTRA);
 
         mensaje = extras.getString("MENSAJE");
 
@@ -41,7 +39,7 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
         super.onStart();
 
 
-        frgMaterialInfo.mostrarMaterial(material, idObra);
+        frgMaterialInfo.mostrarMaterial(material);
     }
 
     @Override

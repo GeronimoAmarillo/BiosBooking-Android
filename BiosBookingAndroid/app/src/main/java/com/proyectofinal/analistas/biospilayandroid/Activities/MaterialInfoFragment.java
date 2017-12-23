@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorMovimientos;
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
@@ -37,7 +38,6 @@ public class MaterialInfoFragment extends Fragment {
     protected FloatingActionButton btnAgregarMovimiento;
 
     protected DTMaterial material;
-    protected int idObra;
 
     private MaterialInfoFragment.OnMaterialSeleccionadoListener listener;
 
@@ -86,25 +86,21 @@ public class MaterialInfoFragment extends Fragment {
         listener = null;
     }
 
-    public void mostrarMaterial(DTMaterial material, int idObra) {
+    public void mostrarMaterial(DTMaterial material) {
 
-        tvNombreMaterial.setText(material.getNombre());
-        tvStock.setText(String.valueOf(material.getStock()));
-        tvObra.setText(String.valueOf(idObra));
+        tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
+        tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
+        tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
 
-        AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), material.getMovimientos());
+        AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), ControladorGral.getMaterialSeleccionado().getMovimientos());
         lvMovimientos.setAdapter(adaptadorMovimientos);
 
         this.material = material;
-        this.idObra = idObra;
     }
 
     protected void onAgregarMovimientoClick(View view){
 
         Intent intencion = new Intent(getActivity(), MovimientosActivity.class);
-
-        intencion.putExtra("IdObra", idObra);
-        intencion.putExtra("Material", material);
 
         startActivity(intencion);
 

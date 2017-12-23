@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
@@ -27,7 +28,6 @@ public class AddMaterialActivity extends AppCompatActivity {
 
     ControladorMaterial controlador;
 
-    DtObra obra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,8 @@ public class AddMaterialActivity extends AppCompatActivity {
         controlador = new ControladorMaterial();
 
         Bundle extras = getIntent().getExtras();
-        obra = (DtObra)extras.getSerializable("Obra");
 
-        tvObra.setText(String.valueOf(obra.getIdObra()));
+        tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
 
         btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
 
@@ -69,7 +68,7 @@ public class AddMaterialActivity extends AppCompatActivity {
 
         boolean exito = false;
 
-        exito = controlador.AltaMaterial(materialAagregar, obra.getIdObra(), bd);
+        exito = controlador.AltaMaterial(materialAagregar, ControladorGral.getObraSeleccionada().getIdObra(), bd);
 
         Intent intencion = new Intent(getApplicationContext(), MaterialListActivity.class);
 
@@ -79,7 +78,7 @@ public class AddMaterialActivity extends AppCompatActivity {
             intencion.putExtra("MENSAJE", "Se produjo un error al intentar dar de alta el material!.");
         }
 
-        intencion.putExtra("Obra", obra);
+        ControladorGral.actualizarRepositorio(bd);
 
         startActivity(intencion);
     }

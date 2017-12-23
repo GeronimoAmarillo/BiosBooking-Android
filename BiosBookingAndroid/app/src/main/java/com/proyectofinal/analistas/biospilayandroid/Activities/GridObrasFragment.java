@@ -18,7 +18,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorObras;
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMaterial;
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMovimiento;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.Logica.Obra;
 import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDContract;
@@ -28,6 +30,7 @@ import com.proyectofinal.analistas.biospilayandroid.R;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class GridObrasFragment extends Fragment {
@@ -79,9 +82,6 @@ public class GridObrasFragment extends Fragment {
 
         ControladorMaterial controlador = new ControladorMaterial();
 
-        List<DtObra> obras = new ArrayList<DtObra>();
-        DtObra obra = null;
-
         gvObras=(GridView)getView().findViewById(R.id.gvObras);
 
         boolean datosIniciados = false;
@@ -90,41 +90,23 @@ public class GridObrasFragment extends Fragment {
 
         datosIniciados = preferencias.getBoolean(PREFERENCIA_INICIALES, false);
 
+        ControladorGral.setControlMovimientos(new ControladorMovimiento());
+        ControladorGral.setControlMateriales(new ControladorMaterial());
+
         if(!datosIniciados){
             controlador.cargarDatosIniciales(baseDatos);
+
+            ControladorGral.actualizarRepositorio(baseDatos);
 
             datosInicialesIngresados = true;
 
             guardarIniciados();
         }
 
-        Cursor lista = controlador.listarObras(baseDatos);
+        ControladorGral.actualizarRepositorio(baseDatos);
 
-        int columnaId = lista.getColumnIndex(BDContract.Obras._ID);
-        int columnaFecha = lista.getColumnIndex(BDContract.Obras.COLUMNA_FECHA_CONTRATO);
-        int columnaMetros = lista.getColumnIndex(BDContract.Obras.COLUMNA_METROS_CUADRADOS);
-        int columnaCliente = lista.getColumnIndex(BDContract.Obras.COLUMNA_NOMBRE_CLIENTE);
-        int columnaDireccion = lista.getColumnIndex(BDContract.Obras.COLUMNA_DIRECCION);
-        int columnaFoto = lista.getColumnIndex(BDContract.Obras.COLUMNA_FOTO);
+        AdaptadorObras adaptadorObras = new AdaptadorObras(getActivity(), ControladorGral.getControlMateriales().getObras());
 
-
-        while(lista.moveToNext()){
-
-            obra = new DtObra();
-
-            obra.setIdObra(Integer.parseInt(lista.getString(columnaId)));
-            obra.setFechadeContrato(Date.valueOf(lista.getString(columnaFecha)));
-            obra.setMetrosCuadrados(Double.parseDouble(lista.getString(columnaMetros)));
-            obra.setNombreCliente(lista.getString(columnaCliente));
-            obra.setDireccion(lista.getString(columnaDireccion));
-            obra.setFoto(lista.getString(columnaFoto));
-            obra.setMateriales(controlador.ListarMaterialesXObra(obra.getIdObra(), baseDatos));
-
-            obras.add(obra);
-        }
-
-
-        AdaptadorObras adaptadorObras = new AdaptadorObras(getActivity(), obras);
         gvObras.setAdapter(adaptadorObras);
 
         gvObras.setOnItemClickListener(new AdapterView.OnItemClickListener() {

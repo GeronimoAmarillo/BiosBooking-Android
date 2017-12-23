@@ -20,6 +20,7 @@ import android.widget.SimpleCursorAdapter;
 
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorMateriales;
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorObras;
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
@@ -100,7 +101,7 @@ public class MaterialesListFragment extends Fragment {
 
     protected void lvMaterialesOnItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (listener != null) {
-            listener.onMaterialSeleccionado((DTMaterial) parent.getItemAtPosition(position), obra.getIdObra());
+            listener.onMaterialSeleccionado((DTMaterial) parent.getItemAtPosition(position));
         }
     }
 
@@ -114,21 +115,23 @@ public class MaterialesListFragment extends Fragment {
 
     public interface OnMaterialSeleccionadoListener {
 
-        void onMaterialSeleccionado(DTMaterial material, int idObra);
+        void onMaterialSeleccionado(DTMaterial material);
     }
 
-    protected void listarMateriales(final DtObra obra){
+    protected void listarMateriales(){
 
-        adaptador = new AdaptadorMateriales(getActivity(), obra.getMateriales(), obra.getIdObra());
+        final DtObra obraSeleccionada = ControladorGral.getObraSeleccionada();
+
+        adaptador = new AdaptadorMateriales(getActivity(), obraSeleccionada.getMateriales(), obraSeleccionada.getIdObra());
         lvMateriales.setAdapter(adaptador);
 
-        this.obra = obra;
+        this.obra = obraSeleccionada;
 
         lvMateriales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (listener != null) {
-                    listener.onMaterialSeleccionado((DTMaterial) parent.getItemAtPosition(position), obra.getIdObra());
+                    listener.onMaterialSeleccionado((DTMaterial) parent.getItemAtPosition(position));
                 }
             }
         });

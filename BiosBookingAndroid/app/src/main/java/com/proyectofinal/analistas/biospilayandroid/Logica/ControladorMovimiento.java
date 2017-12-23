@@ -8,6 +8,7 @@ import android.widget.SimpleCursorAdapter;
 import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDContract;
 import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDHelper;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
  * Created by Geronimo on 03/12/2017.
  */
 
-public class ControladorMovimiento {
+public class ControladorMovimiento implements Serializable{
 
     public ControladorMovimiento(){
 

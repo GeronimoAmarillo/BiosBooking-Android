@@ -13,6 +13,7 @@ import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDContract;
 import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDHelper;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +24,17 @@ import java.util.List;
  * Created by Geronimo on 03/12/2017.
  */
 
-public class ControladorMaterial {
+public class ControladorMaterial implements Serializable{
 
+    public List<DtObra> getObras() {
+        return obras;
+    }
+
+    public void setObras(List<DtObra> obras) {
+        this.obras = obras;
+    }
+
+    protected List<DtObra> obras;
 
     public ControladorMaterial(){
 
@@ -128,9 +138,38 @@ public class ControladorMaterial {
         return movimientos;
     }
 
-    public Cursor listarObras(SQLiteDatabase bbdd) {
+    public List<DtObra> listarObras(SQLiteDatabase bbdd) {
 
-        return bbdd.query(BDContract.TABLA_OBRA, BDContract.Obras.COLUMNAS, null, null, null, null, BDContract.Obras._ID + " DESC");
+        List<DtObra> obras = new ArrayList<DtObra>();
+        DtObra obra = null;
+
+        Cursor lista = bbdd.query(BDContract.TABLA_OBRA, BDContract.Obras.COLUMNAS, null, null, null, null, BDContract.Obras._ID + " DESC");
+
+
+        int columnaId = lista.getColumnIndex(BDContract.Obras._ID);
+        int columnaFecha = lista.getColumnIndex(BDContract.Obras.COLUMNA_FECHA_CONTRATO);
+        int columnaMetros = lista.getColumnIndex(BDContract.Obras.COLUMNA_METROS_CUADRADOS);
+        int columnaCliente = lista.getColumnIndex(BDContract.Obras.COLUMNA_NOMBRE_CLIENTE);
+        int columnaDireccion = lista.getColumnIndex(BDContract.Obras.COLUMNA_DIRECCION);
+        int columnaFoto = lista.getColumnIndex(BDContract.Obras.COLUMNA_FOTO);
+
+
+        while(lista.moveToNext()){
+
+            obra = new DtObra();
+
+            obra.setIdObra(Integer.parseInt(lista.getString(columnaId)));
+            obra.setFechadeContrato(java.sql.Date.valueOf(lista.getString(columnaFecha)));
+            obra.setMetrosCuadrados(Double.parseDouble(lista.getString(columnaMetros)));
+            obra.setNombreCliente(lista.getString(columnaCliente));
+            obra.setDireccion(lista.getString(columnaDireccion));
+            obra.setFoto(lista.getString(columnaFoto));
+            obra.setMateriales(this.ListarMaterialesXObra(obra.getIdObra(), bbdd));
+
+            obras.add(obra);
+        }
+
+        return obras;
     }
 
     public boolean AltaMaterial(DTMaterial material, int idObra, SQLiteDatabase bd){
@@ -164,6 +203,7 @@ public class ControladorMaterial {
 
 
     }
+
 
     public void cargarDatosIniciales(SQLiteDatabase baseDatos){
 

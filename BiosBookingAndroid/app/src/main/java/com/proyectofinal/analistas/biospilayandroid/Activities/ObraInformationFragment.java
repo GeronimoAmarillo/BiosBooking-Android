@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
@@ -60,20 +61,18 @@ public class ObraInformationFragment extends Fragment {
         });
     }
 
-    public void mostrarObra(DtObra obra) {
+    public void mostrarObra() {
 
-        tvIdObra.setText(String.valueOf(obra.getIdObra()));
-        tvNombreDueño.setText(obra.getNombreCliente());
-        tvDireccion.setText(obra.getDireccion());
+        tvIdObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+        tvNombreDueño.setText(ControladorGral.getObraSeleccionada().getNombreCliente());
+        tvDireccion.setText(ControladorGral.getObraSeleccionada().getDireccion());
 
-        this.obra = obra;
+        this.obra = ControladorGral.getObraSeleccionada();
 
     }
 
     public void onClickMateriales(View v){
         Intent intencion = new Intent(getActivity().getApplicationContext(), MaterialListActivity.class);
-
-        intencion.putExtra("Obra", obra);
 
         startActivity(intencion);
     }
