@@ -1,10 +1,12 @@
 package com.proyectofinal.analistas.biospilayandroid.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorMovimientos;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
@@ -31,13 +34,25 @@ public class MaterialInfoFragment extends Fragment {
     protected TextView tvStock;
     protected TextView tvObra;
     protected ListView lvMovimientos;
+    protected FloatingActionButton btnAgregarMovimiento;
 
+    protected DTMaterial material;
+    protected int idObra;
+
+    private MaterialInfoFragment.OnMaterialSeleccionadoListener listener;
 
 
     public MaterialInfoFragment() {
-
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof GridObrasFragment.OnObraSeleccionadaListener) {
+            listener = (MaterialInfoFragment.OnMaterialSeleccionadoListener)context;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,33 +69,50 @@ public class MaterialInfoFragment extends Fragment {
         lvMovimientos = (ListView) getView().findViewById(R.id.lvMovimientos);
 
 
+        btnAgregarMovimiento = (FloatingActionButton)getView().findViewById(R.id.btnAgregarMovimiento);
 
-        lvMovimientos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        btnAgregarMovimiento.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lvMovimientosOnItemClick(adapterView, view, i, l);
+            public void onClick(View view) {
+                onAgregarMovimientoClick(view);
             }
         });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        listener = null;
     }
 
     public void mostrarMaterial(DTMaterial material, int idObra) {
 
         tvNombreMaterial.setText(material.getNombre());
         tvStock.setText(String.valueOf(material.getStock()));
-        tvObra.setText(idObra);
+        tvObra.setText(String.valueOf(idObra));
 
+        AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), material.getMovimientos());
+        lvMovimientos.setAdapter(adaptadorMovimientos);
+
+        this.material = material;
+        this.idObra = idObra;
+    }
+
+    protected void onAgregarMovimientoClick(View view){
+
+        Intent intencion = new Intent(getActivity(), MovimientosActivity.class);
+
+        intencion.putExtra("IdObra", idObra);
+        intencion.putExtra("Material", material);
+
+        startActivity(intencion);
 
     }
 
-    public void onClickMateriales(View v){
-        /*Intent intencion = new Intent(getActivity().getApplicationContext(), MaterialInformationActivity.class);
+    public interface OnMaterialSeleccionadoListener {
 
-        intencion.putExtra("Obra", );
-
-        startActivity(intencion);*/
-    }
-
-    protected void lvMovimientosOnItemClick(AdapterView<?> adapterView, View view, int i, long l){
+        void OnMaterialSeleccionado(DtObra obra);
 
     }
 

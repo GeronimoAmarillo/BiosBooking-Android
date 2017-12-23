@@ -1,6 +1,11 @@
 package com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,17 +74,22 @@ public class AdaptadorObras extends BaseAdapter {
 
         private TextView tvIdObra;
         private TextView tvDireccion;
+        private ImageView ivFoto;
 
 
         public ObraViewHolder(View vista) {
             tvIdObra = (TextView) vista.findViewById(R.id.tvIdObra);
             tvDireccion = (TextView)vista.findViewById(R.id.tvDireccionObra);
+            ivFoto = (ImageView)vista.findViewById(R.id.ivFotoObra);
         }
 
         public void enlazarEmpleado(DtObra obra) {
 
             tvIdObra.setText(String.valueOf(obra.getIdObra()));
             tvDireccion.setText(obra.getDireccion());
+            Bitmap imagen = (((BitmapDrawable)ContextCompat.getDrawable(contexto, Integer.parseInt(obra.getFoto()))).getBitmap());
+
+            ivFoto.setImageBitmap(imagen);
         }
 
     }

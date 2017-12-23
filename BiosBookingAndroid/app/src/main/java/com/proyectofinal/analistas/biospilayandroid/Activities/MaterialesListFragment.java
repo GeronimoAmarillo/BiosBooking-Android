@@ -1,12 +1,14 @@
 package com.proyectofinal.analistas.biospilayandroid.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ public class MaterialesListFragment extends Fragment {
 
     private MaterialesListFragment.OnMaterialSeleccionadoListener listener;
     protected ListView lvMateriales;
+    protected FloatingActionButton btnAgregarMaterial;
 
 
     AdaptadorMateriales adaptador;
@@ -74,7 +77,25 @@ public class MaterialesListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         lvMateriales=(ListView) getView().findViewById(R.id.lvMateriales);
+        btnAgregarMaterial = (FloatingActionButton) getView().findViewById(R.id.btnAgregarMaterial);
 
+        btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                onAgregarMaterialClick(view);
+            }
+        });
+
+    }
+
+    private void onAgregarMaterialClick(View view) {
+
+        Intent intencion = new Intent(getActivity(), AddMaterialActivity.class);
+
+        intencion.putExtra("Obra", obra);
+
+        startActivity(intencion);
     }
 
     protected void lvMaterialesOnItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,15 +117,19 @@ public class MaterialesListFragment extends Fragment {
         void onMaterialSeleccionado(DTMaterial material, int idObra);
     }
 
-    protected void listarMateriales(DtObra obra){
+    protected void listarMateriales(final DtObra obra){
 
         adaptador = new AdaptadorMateriales(getActivity(), obra.getMateriales(), obra.getIdObra());
         lvMateriales.setAdapter(adaptador);
 
+        this.obra = obra;
+
         lvMateriales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lvMaterialesOnItemClick(parent, view, position, id);
+                if (listener != null) {
+                    listener.onMaterialSeleccionado((DTMaterial) parent.getItemAtPosition(position), obra.getIdObra());
+                }
             }
         });
     }

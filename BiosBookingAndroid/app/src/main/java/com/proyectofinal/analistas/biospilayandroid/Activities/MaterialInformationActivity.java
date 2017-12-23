@@ -5,23 +5,48 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
+import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
-public class MaterialInformationActivity extends AppCompatActivity {
+public class MaterialInformationActivity extends AppCompatActivity implements MaterialInfoFragment.OnMaterialSeleccionadoListener {
 
     String mensaje;
+
+    private MaterialInfoFragment frgMaterialInfo;
+    DTMaterial material;
+    int idObra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_material_information);
 
-        Intent intent = getIntent();
-        mensaje = intent.getExtras().getString("MENSAJE");
+        frgMaterialInfo = (MaterialInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleMaterial);
 
-        if(mensaje != null || !mensaje.isEmpty()){
-            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT);
+        Bundle extras = getIntent().getExtras();
+
+        material = (DTMaterial)extras.getSerializable(MaterialListActivity.EXTRA_MATERIAL);
+        idObra = extras.getInt(MaterialListActivity.OBRA_DUEÑA_EXTRA);
+
+        mensaje = extras.getString("MENSAJE");
+
+        if(mensaje != null){
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        frgMaterialInfo.mostrarMaterial(material, idObra);
+    }
+
+    @Override
+    public void OnMaterialSeleccionado(DtObra obra) {
+
 
     }
 }

@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialListActivity">
 
+    <fragment
+        android:id="@+id/frgMaterialesList"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialesListFragment"
+        tools:layout="@layout/fragment_materiales_list" />
+
 </android.support.constraint.ConstraintLayout>

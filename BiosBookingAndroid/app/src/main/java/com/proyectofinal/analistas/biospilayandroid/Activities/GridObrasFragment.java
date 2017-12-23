@@ -118,6 +118,7 @@ public class GridObrasFragment extends Fragment {
             obra.setNombreCliente(lista.getString(columnaCliente));
             obra.setDireccion(lista.getString(columnaDireccion));
             obra.setFoto(lista.getString(columnaFoto));
+            obra.setMateriales(controlador.ListarMaterialesXObra(obra.getIdObra(), baseDatos));
 
             obras.add(obra);
         }

@@ -1,6 +1,7 @@
 package com.proyectofinal.analistas.biospilayandroid.Activities;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +12,13 @@ import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMovimiento;
+import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMovimiento;
+import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDHelper;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MovimientosActivity extends AppCompatActivity {
 
@@ -25,23 +29,29 @@ public class MovimientosActivity extends AppCompatActivity {
     protected EditText etCantidad;
     protected EditText etObservacion;
 
+    protected int idObra;
+    protected DTMaterial material;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimientos);
 
-        tvIdObra = (TextView)findViewById(R.id.tvIdObra);
-        tvNombreMaterial = (TextView)findViewById(R.id.tvNombreMaterial);
+        tvIdObra = (TextView)findViewById(R.id.tvObra);
+        tvNombreMaterial = (TextView)findViewById(R.id.tvMaterial);
         tvStock = (TextView)findViewById(R.id.tvStock);
         cbTipo = (CheckBox)findViewById(R.id.cbTipoMovimiento);
         etCantidad = (EditText)findViewById(R.id.etCantidad);
-        etObservacion = (EditText)findViewById(R.id.etCantidad);
+        etObservacion = (EditText)findViewById(R.id.etObservacion);
 
-        Intent intencion = getIntent();
+        Bundle extras = getIntent().getExtras();
 
-        tvIdObra.setText(intencion.getExtras().getString("OBRA"));
-        tvNombreMaterial.setText(intencion.getExtras().getString("MATERIAL"));
-        tvStock.setText(intencion.getExtras().getString("STOCK"));
+        material = (DTMaterial)extras.getSerializable("Material");
+        idObra = extras.getInt("IdObra");
+
+        tvIdObra.setText(String.valueOf(idObra));
+        tvNombreMaterial.setText(material.getNombre());
+        tvStock.setText(String.valueOf(material.getStock()));
     }
 
     public void RealizarMovimientoOnClick(View v){
@@ -56,6 +66,7 @@ public class MovimientosActivity extends AppCompatActivity {
         String observacion = "N/D";
         boolean exito = false;
         int nuevoStock = 0;
+        int ultimoId = 0;
 
         try{
 
@@ -75,7 +86,7 @@ public class MovimientosActivity extends AppCompatActivity {
             Toast.makeText(this, "Ocurrio un error al convertir el stock a entero.", Toast.LENGTH_SHORT);
         }
 
-        if(cbTipo.isChecked()){
+        if(!cbTipo.isChecked()){
 
             try{
 
@@ -120,16 +131,23 @@ public class MovimientosActivity extends AppCompatActivity {
         datosMovimiento.setCantidad(cantidad);
         datosMovimiento.setObservacion(observacion);
 
+        BDHelper helper = new BDHelper(this);
+        SQLiteDatabase bd = helper.getWritableDatabase();
 
-        exito = controlador.realizarMovimiento(datosMovimiento, idObra, nombreMaterial, nuevoStock);
+        exito = controlador.realizarMovimiento(datosMovimiento, idObra, nombreMaterial, nuevoStock, bd);
 
         Intent intencion = new Intent(getApplicationContext(), MaterialInformationActivity.class);
 
         if(exito){
             intencion.putExtra("MENSAJE", "Se realizo el movimiento exitosamente!.");
         }else{
-            intencion.putExtra("MENSAJE", "No se realizo el movimiento exitosamente!.");
+            intencion.putExtra("MENSAJE", "Se produjo un error al intentar registrar el movimiento!.");
         }
+
+        material.getMovimientos().add(datosMovimiento);
+
+        intencion.putExtra(MaterialListActivity.EXTRA_MATERIAL, material);
+        intencion.putExtra(MaterialListActivity.OBRA_DUEÑA_EXTRA, idObra);
 
         startActivity(intencion);
 

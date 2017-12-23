@@ -73,7 +73,7 @@ public class BDContract {
 
     }
 
-    public static abstract class Movimientos implements BaseColumns {
+    public static abstract class Movimientos implements BaseColumns{
 
         public static final String COLUMNA_CANTIDAD = "Cantidad";
         public static final String COLUMNA_OBSERVACION = "Observacion";
@@ -84,15 +84,14 @@ public class BDContract {
         public static final String[] COLUMNAS = {_ID, COLUMNA_CANTIDAD, COLUMNA_OBSERVACION, COLUMNA_MATERIAL, COLUMNA_OBRA, COLUMNA_FECHA_MOVIMIENTO};
 
         public static final String SQL_CREAR_TABLA = new StringBuilder("CREATE TABLE ").append(TABLA_MOVIMIENTO).append(" (")
-                .append(_ID).append(" INTEGER NOT NULL, ")
+                .append(_ID).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
                 .append(COLUMNA_CANTIDAD).append(" INTEGER NOT NULL, ")
                 .append(COLUMNA_OBSERVACION).append(" TEXT NOT NULL, ")
                 .append(COLUMNA_MATERIAL).append(" INTEGER NOT NULL, ")
                 .append(COLUMNA_OBRA).append(" INTEGER NOT NULL, ")
                 .append(COLUMNA_FECHA_MOVIMIENTO).append(" TEXT NOT NULL, ")
                 .append("FOREIGN KEY (").append(COLUMNA_MATERIAL + ")").append(" REFERENCES " + TABLA_MATERIAL + "("+ Materiales.COLUMNA_NOMBRE +"), ")
-                .append("FOREIGN KEY (").append(COLUMNA_OBRA + ")").append(" REFERENCES " + TABLA_MATERIAL + "("+ Materiales.COLUMNA_OBRA + "), ")
-                .append("PRIMARY KEY ("+ COLUMNA_MATERIAL +", "+ COLUMNA_OBRA +", " + _ID +"));").toString();
+                .append("FOREIGN KEY (").append(COLUMNA_OBRA + ")").append(" REFERENCES " + TABLA_MATERIAL + "("+ Materiales.COLUMNA_OBRA + "));").toString();
 
 
         public static final String SQL_ELIMINAR_TABLA = new StringBuilder("DROP TABLE IF EXISTS ").append(TABLA_MATERIAL).append(";").toString();
