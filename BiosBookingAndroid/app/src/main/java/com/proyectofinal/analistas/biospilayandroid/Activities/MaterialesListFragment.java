@@ -14,9 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorMateriales;
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorObras;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MaterialesListFragment extends Fragment {
+public class MaterialesListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     protected DtObra obra;
 
@@ -42,8 +45,15 @@ public class MaterialesListFragment extends Fragment {
     protected ListView lvMateriales;
     protected FloatingActionButton btnAgregarMaterial;
 
+    protected Spinner spFiltro;
+
 
     AdaptadorMateriales adaptador;
+
+    public static final String ESTADO_DISPONIBLE = "c/Disponibilidad";
+    public static final String ESTADO_NO_DISPONIBLE = "s/Disponibilidad";
+    public static final String TODOS = "Todos";
+
 
 
     public static GridObrasFragment getInstance() {
@@ -79,6 +89,16 @@ public class MaterialesListFragment extends Fragment {
 
         lvMateriales=(ListView) getView().findViewById(R.id.lvMateriales);
         btnAgregarMaterial = (FloatingActionButton) getView().findViewById(R.id.btnAgregarMaterial);
+
+        spFiltro = (Spinner)getView().findViewById(R.id.spFiltro);
+
+        String[] filtros = { ESTADO_DISPONIBLE, ESTADO_NO_DISPONIBLE, TODOS };
+
+        ArrayAdapter<String> adaptadorFiltros = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, filtros);
+        adaptadorFiltros.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spFiltro.setAdapter(adaptadorFiltros);
+
+        spFiltro.setOnItemSelectedListener(this);
 
         btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
 
@@ -135,5 +155,19 @@ public class MaterialesListFragment extends Fragment {
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        adaptador = new AdaptadorMateriales(getActivity(), ControladorGral.ListaFiltrada(parent, view, position, id), ControladorGral.getObraSeleccionada().getIdObra());
+        lvMateriales.setAdapter(adaptador);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

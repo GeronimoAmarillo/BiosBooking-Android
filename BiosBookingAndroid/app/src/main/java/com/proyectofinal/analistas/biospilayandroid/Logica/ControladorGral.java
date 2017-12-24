@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDContract;
 import com.proyectofinal.analistas.biospilayandroid.R;
@@ -134,6 +136,41 @@ public class ControladorGral implements Serializable {
         setMaterialSeleccionado(materialSeleccionado);
 
         return materialSeleccionado;
+    }
+
+    public static List<DTMaterial> ListaFiltrada(AdapterView<?> parent, View view, int position, long id){
+
+        List<DTMaterial> materiales = new ArrayList<DTMaterial>();
+
+        switch (parent.getItemAtPosition(position).toString()) {
+            case "c/Disponibilidad":
+
+                for (DTMaterial m : obraSeleccionada.getMateriales()) {
+                    if(m.getStock() > 0){
+                        materiales.add(m);
+                    }
+                }
+
+                break;
+
+            case "s/Disponibilidad":
+
+                for (DTMaterial m : obraSeleccionada.getMateriales()) {
+                    if(m.getStock() < 0){
+                        materiales.add(m);
+                    }
+                }
+
+                break;
+
+            case "Todos":
+
+                materiales = obraSeleccionada.getMateriales();
+
+                break;
+        }
+
+        return materiales;
     }
 
 }
