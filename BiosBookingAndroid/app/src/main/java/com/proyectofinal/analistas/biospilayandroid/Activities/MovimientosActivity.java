@@ -44,9 +44,9 @@ public class MovimientosActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        tvIdObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
-        tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
-        tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
+        tvIdObra.setText("Identificador de obra: " + String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+        tvNombreMaterial.setText("Nombre del material: " + ControladorGral.getMaterialSeleccionado().getNombre());
+        tvStock.setText("Stock: " + String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
     }
 
     public void RealizarMovimientoOnClick(View v){

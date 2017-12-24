@@ -11,6 +11,8 @@ import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -69,17 +71,20 @@ public class AdaptadorMateriales extends BaseAdapter {
 
         private TextView tvIdObra;
         private TextView tvMaterial;
+        private TextView tvStock;
 
 
         public MaterialViewHolder(View vista) {
             tvIdObra = (TextView) vista.findViewById(R.id.tvIdObra);
             tvMaterial = (TextView)vista.findViewById(R.id.tvNombreMaterial);
+            tvStock = (TextView)vista.findViewById(R.id.tvStock);
         }
 
         public void enlazarMaterial(DTMaterial material, int idObra) {
 
             tvIdObra.setText(String.valueOf(idObra));
             tvMaterial.setText(material.getNombre());
+            tvStock.setText(String.valueOf(material.getStock()));
         }
 
     }

@@ -77,10 +77,12 @@ public class AdaptadorObras extends BaseAdapter {
         private ImageView ivFoto;
 
 
+
         public ObraViewHolder(View vista) {
             tvIdObra = (TextView) vista.findViewById(R.id.tvIdObra);
             tvDireccion = (TextView)vista.findViewById(R.id.tvDireccionObra);
             ivFoto = (ImageView)vista.findViewById(R.id.ivFotoObra);
+
         }
 
         public void enlazarEmpleado(DtObra obra) {
@@ -90,6 +92,8 @@ public class AdaptadorObras extends BaseAdapter {
             Bitmap imagen = (((BitmapDrawable)ContextCompat.getDrawable(contexto, Integer.parseInt(obra.getFoto()))).getBitmap());
 
             ivFoto.setImageBitmap(imagen);
+
+
         }
 
     }

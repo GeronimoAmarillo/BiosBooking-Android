@@ -67,17 +67,36 @@ public class AdaptadorMovimientos extends BaseAdapter {
 
         private TextView tvCantidad;
         private TextView tvObservacion;
+        private TextView tvTipo;
 
 
         public MovimientoViewHolder(View vista) {
             tvCantidad = (TextView) vista.findViewById(R.id.tvCantidad);
             tvObservacion = (TextView)vista.findViewById(R.id.tvObservacion);
+            tvTipo = (TextView)vista.findViewById(R.id.tvTipoMovimiento);
         }
 
         public void enlazarMovimiento(DTMovimiento movimiento) {
 
-            tvCantidad.setText(String.valueOf(movimiento.getCantidad()));
+
             tvObservacion.setText(movimiento.getObservacion());
+
+            String cantidad = String.valueOf(movimiento.getCantidad());
+
+            char simbolo = cantidad.charAt(0);
+
+            if(String.valueOf(simbolo).equals("-")){
+
+                tvCantidad.setText(String.valueOf(movimiento.getCantidad()).substring(1, String.valueOf(movimiento.getCantidad()).length()));
+                tvTipo.setText("Alta");
+
+            }else{
+
+                tvCantidad.setText(String.valueOf(movimiento.getCantidad()));
+                tvTipo.setText("Baja");
+
+            }
+
         }
     }
 }
