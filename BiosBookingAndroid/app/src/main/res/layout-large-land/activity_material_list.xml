@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <fragment
-            android:id="@+id/frgListadoMateriales"
+            android:id="@+id/frgMaterialesList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="30"

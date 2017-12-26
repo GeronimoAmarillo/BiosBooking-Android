@@ -1,5 +1,6 @@
 package com.proyectofinal.analistas.biospilayandroid.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -7,9 +8,10 @@ import android.widget.Toast;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
-public class ObraDetailActivity extends AppCompatActivity {
+public class ObraDetailActivity extends AppCompatActivity /*implements ObraInformationFragment.OnClickMaterialesListener*/ {
 
     ObraInformationFragment frgDetalleObra;
+    MaterialesListFragment frgMaterialesList;
 
     DtObra obra;
 
@@ -45,4 +47,25 @@ public class ObraDetailActivity extends AppCompatActivity {
         }
 
     }
+
+    /*@Override
+    public void OnClickMateriales() {
+        try{
+
+            frgMaterialesList = (MaterialesListFragment) getSupportFragmentManager().findFragmentById(R.id.frgMaterialesList);
+
+            if (frgMaterialesList != null) {
+                frgMaterialesList.listarMateriales();
+            } else {
+                Intent intencion = new Intent(this, MaterialListActivity.class);
+
+                startActivity(intencion);
+            }
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+    }*/
 }

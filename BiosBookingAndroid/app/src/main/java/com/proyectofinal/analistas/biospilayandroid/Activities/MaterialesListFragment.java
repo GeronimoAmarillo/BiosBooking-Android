@@ -32,12 +32,13 @@ import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDContract;
 import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDHelper;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MaterialesListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class MaterialesListFragment extends Fragment implements AdapterView.OnItemSelectedListener, Serializable {
 
     protected DtObra obra;
 
@@ -56,8 +57,8 @@ public class MaterialesListFragment extends Fragment implements AdapterView.OnIt
 
 
 
-    public static GridObrasFragment getInstance() {
-        return new GridObrasFragment();
+    public static MaterialesListFragment getInstance() {
+        return new MaterialesListFragment();
     }
 
 

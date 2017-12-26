@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.ObraDetailActivity" />
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.ObraDetailActivity"/>
         <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.AddMaterialActivity"/>
-        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialListActivity" />
-        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MovimientosActivity" />
-        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialInformationActivity"></activity>
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialListActivity"/>
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MovimientosActivity"/>
+        <activity android:name="com.proyectofinal.analistas.biospilayandroid.Activities.MaterialInformationActivity"/>
     </application>
 
 </manifest>

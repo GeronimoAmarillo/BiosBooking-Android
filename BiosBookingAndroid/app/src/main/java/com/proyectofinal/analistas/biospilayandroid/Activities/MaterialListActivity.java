@@ -10,13 +10,13 @@ import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
-public class MaterialListActivity extends AppCompatActivity implements MaterialesListFragment.OnMaterialSeleccionadoListener {
+public class MaterialListActivity extends AppCompatActivity implements MaterialesListFragment.OnMaterialSeleccionadoListener{
 
     public static final String EXTRA_MATERIAL = "EXTRA_MATERIAL";
     public static final String OBRA_DUEÑA_EXTRA = "OBRA_DUEÑA_EXTRA";
 
     String mensaje;
-    private MaterialesListFragment frgMaterialesList;
+    MaterialesListFragment frgMaterialesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,8 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
     protected void onStart() {
         super.onStart();
 
+
+
         frgMaterialesList.listarMateriales();
     }
 
@@ -80,4 +82,5 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
 
         }
     }
+
 }

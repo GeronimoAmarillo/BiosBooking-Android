@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,9 +42,20 @@ public class ObraInformationFragment extends Fragment {
     private TextView tvMetros;
     private TextView tvFecha;
 
+    /*private ObraInformationFragment.OnClickMaterialesListener listener;*/
+
     public ObraInformationFragment() {
 
     }
+
+    /*@Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ObraInformationFragment.OnClickMaterialesListener) {
+            listener = (ObraInformationFragment.OnClickMaterialesListener)context;
+        }
+    }*/
 
 
     @Override
@@ -108,16 +120,27 @@ public class ObraInformationFragment extends Fragment {
 
     }
 
+    /*public interface OnClickMaterialesListener {
+
+        void OnClickMateriales();
+    }*/
+
     public void onClickMateriales(View v){
         try{
 
             Intent intencion = new Intent(getActivity().getApplicationContext(), MaterialListActivity.class);
+
 
             startActivity(intencion);
 
         }catch(Exception ex){
             Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();
         }
-
     }
+
+    /*protected void onClickMateriales(View v) {
+        if (listener != null) {
+            listener.OnClickMateriales();
+        }
+    }*/
 }

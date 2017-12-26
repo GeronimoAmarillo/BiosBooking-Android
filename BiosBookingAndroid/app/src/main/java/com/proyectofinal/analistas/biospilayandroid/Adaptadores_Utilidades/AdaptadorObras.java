@@ -92,8 +92,6 @@ public class AdaptadorObras extends BaseAdapter {
             Bitmap imagen = (((BitmapDrawable)ContextCompat.getDrawable(contexto, Integer.parseInt(obra.getFoto()))).getBitmap());
 
             ivFoto.setImageBitmap(imagen);
-
-
         }
 
     }

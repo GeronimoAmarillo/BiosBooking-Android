@@ -42,6 +42,8 @@ public class MaterialInfoFragment extends Fragment {
     protected TextView tvFecha;
 
 
+
+
     protected DTMaterial material;
 
     private MaterialInfoFragment.OnMaterialSeleccionadoListener listener;
@@ -79,7 +81,13 @@ public class MaterialInfoFragment extends Fragment {
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-            String fecha = formato.format(ControladorGral.getMaterialSeleccionado().getFechaAlta());
+            String fecha = "Fecha";
+
+            if(ControladorGral.getMaterialSeleccionado() != null){
+
+                fecha = formato.format(ControladorGral.getMaterialSeleccionado().getFechaAlta());
+
+            }
 
             tvFecha.setText(fecha);
             btnAgregarMovimiento = (FloatingActionButton)getView().findViewById(R.id.btnAgregarMovimiento);
@@ -96,8 +104,6 @@ public class MaterialInfoFragment extends Fragment {
             Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
-
-
     }
 
     @Override
