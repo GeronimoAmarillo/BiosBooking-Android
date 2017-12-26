@@ -19,27 +19,45 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_material_information);
+        try{
 
-        frgMaterialInfo = (MaterialInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleMaterial);
+            setContentView(R.layout.activity_material_information);
 
-        Bundle extras = getIntent().getExtras();
+            frgMaterialInfo = (MaterialInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleMaterial);
 
-        material = (DTMaterial)extras.getSerializable(MaterialListActivity.EXTRA_MATERIAL);
+            Bundle extras = getIntent().getExtras();
 
-        mensaje = extras.getString("MENSAJE");
+            material = (DTMaterial)extras.getSerializable(MaterialListActivity.EXTRA_MATERIAL);
 
-        if(mensaje != null){
-            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+            mensaje = extras.getString("MENSAJE");
+
+            if(mensaje != null){
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+            }
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        try{
 
-        frgMaterialInfo.mostrarMaterial(material);
+            frgMaterialInfo.mostrarMaterial(material);
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: Se produjo un error al mistrar los Materiales", Toast.LENGTH_SHORT).show();
+
+        }
+
+
     }
 
     @Override

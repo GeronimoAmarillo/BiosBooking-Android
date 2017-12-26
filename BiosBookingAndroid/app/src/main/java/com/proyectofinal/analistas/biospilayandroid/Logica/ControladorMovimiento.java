@@ -32,43 +32,52 @@ public class ControladorMovimiento implements Serializable{
 
     Movimiento movimientoRecordado;
 
-    public boolean realizarMovimiento(DTMovimiento datosMovimiento, int idObra, String nombreMaterial, int nuevoStock, SQLiteDatabase db){
+    public boolean realizarMovimiento(DTMovimiento datosMovimiento, int idObra, String nombreMaterial, int nuevoStock, SQLiteDatabase db) throws Exception {
 
-        ContentValues valores = new ContentValues();
+        try{
 
-        db.beginTransaction();
+            ContentValues valores = new ContentValues();
+
+            db.beginTransaction();
 
 
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-        String fecha = formato.format(new Date());
+            String fecha = formato.format(new Date());
 
-        try {
+            try {
 
-            valores.put(BDContract.Movimientos.COLUMNA_CANTIDAD, String.valueOf(datosMovimiento.getCantidad()));
-            valores.put(BDContract.Movimientos.COLUMNA_FECHA_MOVIMIENTO, fecha);
-            valores.put(BDContract.Movimientos.COLUMNA_MATERIAL, nombreMaterial);
-            valores.put(BDContract.Movimientos.COLUMNA_OBRA, idObra);
-            valores.put(BDContract.Movimientos.COLUMNA_OBSERVACION, datosMovimiento.getObservacion());
-            db.insert(BDContract.TABLA_MOVIMIENTO, null, valores);
 
-            valores.clear();
-            valores.put(BDContract.Materiales.COLUMNA_STOCK, nuevoStock);
-            db.update(BDContract.TABLA_MATERIAL, valores, BDContract.Materiales.COLUMNA_OBRA + " = ? AND " + BDContract.Materiales.COLUMNA_NOMBRE + " = ?", new String[] {String.valueOf(idObra), nombreMaterial});
 
-            db.setTransactionSuccessful();
+                valores.put(BDContract.Movimientos.COLUMNA_CANTIDAD, String.valueOf(datosMovimiento.getCantidad()));
+                valores.put(BDContract.Movimientos.COLUMNA_FECHA_MOVIMIENTO, fecha);
+                valores.put(BDContract.Movimientos.COLUMNA_MATERIAL, nombreMaterial);
+                valores.put(BDContract.Movimientos.COLUMNA_OBRA, idObra);
+                valores.put(BDContract.Movimientos.COLUMNA_OBSERVACION, datosMovimiento.getObservacion());
+                db.insert(BDContract.TABLA_MOVIMIENTO, null, valores);
 
-            return true;
-        } catch (Exception ex) {
+                valores.clear();
+                valores.put(BDContract.Materiales.COLUMNA_STOCK, nuevoStock);
+                db.update(BDContract.TABLA_MATERIAL, valores, BDContract.Materiales.COLUMNA_OBRA + " = ? AND " + BDContract.Materiales.COLUMNA_NOMBRE + " = ?", new String[] {String.valueOf(idObra), nombreMaterial});
 
-            Log.e(MIS_LOGS, "No se pudo realizar el movimiento con exito." + ex);
-            return false;
+                db.setTransactionSuccessful();
 
-        } finally {
+                return true;
+            } catch (Exception ex) {
 
-            db.endTransaction();
+                Log.e(MIS_LOGS, "No se pudo realizar el movimiento con exito." + ex);
+                return false;
 
+            } finally {
+
+                db.endTransaction();
+
+            }
+
+        }catch(Exception ex){
+            throw new Exception("ERROR: " + ex.getMessage());
         }
+
     }
 
 }

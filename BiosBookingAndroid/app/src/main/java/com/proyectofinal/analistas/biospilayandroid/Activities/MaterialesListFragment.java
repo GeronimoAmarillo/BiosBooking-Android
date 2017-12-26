@@ -87,36 +87,55 @@ public class MaterialesListFragment extends Fragment implements AdapterView.OnIt
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        lvMateriales=(ListView) getView().findViewById(R.id.lvMateriales);
-        btnAgregarMaterial = (FloatingActionButton) getView().findViewById(R.id.btnAgregarMaterial);
+        try{
 
-        spFiltro = (Spinner)getView().findViewById(R.id.spFiltro);
+            lvMateriales=(ListView) getView().findViewById(R.id.lvMateriales);
+            btnAgregarMaterial = (FloatingActionButton) getView().findViewById(R.id.btnAgregarMaterial);
 
-        String[] filtros = { ESTADO_DISPONIBLE, ESTADO_NO_DISPONIBLE, TODOS };
+            spFiltro = (Spinner)getView().findViewById(R.id.spFiltro);
 
-        ArrayAdapter<String> adaptadorFiltros = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, filtros);
-        adaptadorFiltros.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spFiltro.setAdapter(adaptadorFiltros);
+            String[] filtros = { ESTADO_DISPONIBLE, ESTADO_NO_DISPONIBLE, TODOS };
 
-        spFiltro.setOnItemSelectedListener(this);
+            ArrayAdapter<String> adaptadorFiltros = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, filtros);
+            adaptadorFiltros.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spFiltro.setAdapter(adaptadorFiltros);
 
-        btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
+            spFiltro.setOnItemSelectedListener(this);
 
-            @Override
-            public void onClick(View view) {
-                onAgregarMaterialClick(view);
-            }
-        });
+            btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    onAgregarMaterialClick(view);
+                }
+            });
+
+        }catch(Exception ex){
+
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+
 
     }
 
     private void onAgregarMaterialClick(View view) {
+        try{
 
-        Intent intencion = new Intent(getActivity(), AddMaterialActivity.class);
+            Intent intencion = new Intent(getActivity(), AddMaterialActivity.class);
 
-        intencion.putExtra("Obra", obra);
+            intencion.putExtra("Obra", obra);
 
-        startActivity(intencion);
+            startActivity(intencion);
+
+        }catch(Exception ex){
+
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+
     }
 
     protected void lvMaterialesOnItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -139,30 +158,48 @@ public class MaterialesListFragment extends Fragment implements AdapterView.OnIt
     }
 
     protected void listarMateriales(){
+        try{
 
-        final DtObra obraSeleccionada = ControladorGral.getObraSeleccionada();
+            final DtObra obraSeleccionada = ControladorGral.getObraSeleccionada();
 
-        adaptador = new AdaptadorMateriales(getActivity(), obraSeleccionada.getMateriales(), obraSeleccionada.getIdObra());
-        lvMateriales.setAdapter(adaptador);
+            adaptador = new AdaptadorMateriales(getActivity(), obraSeleccionada.getMateriales(), obraSeleccionada.getIdObra());
+            lvMateriales.setAdapter(adaptador);
 
-        this.obra = obraSeleccionada;
+            this.obra = obraSeleccionada;
 
-        lvMateriales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (listener != null) {
-                    listener.onMaterialSeleccionado((DTMaterial) parent.getItemAtPosition(position));
+            lvMateriales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (listener != null) {
+                        listener.onMaterialSeleccionado((DTMaterial) parent.getItemAtPosition(position));
+                    }
                 }
-            }
-        });
+            });
+
+        }catch(Exception ex){
+
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        adaptador = new AdaptadorMateriales(getActivity(), ControladorGral.ListaFiltrada(parent, view, position, id), ControladorGral.getObraSeleccionada().getIdObra());
-        lvMateriales.setAdapter(adaptador);
+        try{
+
+            adaptador = new AdaptadorMateriales(getActivity(), ControladorGral.ListaFiltrada(parent, view, position, id), ControladorGral.getObraSeleccionada().getIdObra());
+            lvMateriales.setAdapter(adaptador);
+
+        }catch(Exception ex){
+
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
 
     }
 

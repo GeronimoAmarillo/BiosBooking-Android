@@ -3,6 +3,7 @@ package com.proyectofinal.analistas.biospilayandroid.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
@@ -22,17 +23,25 @@ public class MainActivity extends AppCompatActivity implements GridObrasFragment
     @Override
     public void OnObraSeleccionada(DtObra obra) {
 
-        ObraInformationFragment frgDetalleObra = (ObraInformationFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleObra);
+        try{
 
-        ControladorGral.SeleccionarObra(obra.getIdObra());
+            ObraInformationFragment frgDetalleObra = (ObraInformationFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleObra);
 
-        if (frgDetalleObra != null) {
-            frgDetalleObra.mostrarObra();
-        } else {
-            Intent intencionDetalleObra = new Intent(this, ObraDetailActivity.class);
-            intencionDetalleObra.putExtra(EXTRA_OBRA, obra);
+            ControladorGral.SeleccionarObra(obra.getIdObra());
 
-            startActivity(intencionDetalleObra);
+            if (frgDetalleObra != null) {
+                frgDetalleObra.mostrarObra();
+            } else {
+                Intent intencionDetalleObra = new Intent(this, ObraDetailActivity.class);
+                intencionDetalleObra.putExtra(EXTRA_OBRA, obra);
+
+                startActivity(intencionDetalleObra);
+            }
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
     }
 }

@@ -19,6 +19,7 @@ import com.proyectofinal.analistas.biospilayandroid.Persistencia.BDHelper;
 import com.proyectofinal.analistas.biospilayandroid.R;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MovimientosActivity extends AppCompatActivity {
@@ -35,113 +36,128 @@ public class MovimientosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimientos);
 
-        tvIdObra = (TextView)findViewById(R.id.tvObra);
-        tvNombreMaterial = (TextView)findViewById(R.id.tvMaterial);
-        tvStock = (TextView)findViewById(R.id.tvStock);
-        cbTipo = (CheckBox)findViewById(R.id.cbTipoMovimiento);
-        etCantidad = (EditText)findViewById(R.id.etCantidad);
-        etObservacion = (EditText)findViewById(R.id.etObservacion);
+        try{
 
-        Bundle extras = getIntent().getExtras();
+            tvIdObra = (TextView)findViewById(R.id.tvObra);
+            tvNombreMaterial = (TextView)findViewById(R.id.tvMaterial);
+            tvStock = (TextView)findViewById(R.id.tvStock);
+            cbTipo = (CheckBox)findViewById(R.id.cbTipoMovimiento);
+            etCantidad = (EditText)findViewById(R.id.etCantidad);
+            etObservacion = (EditText)findViewById(R.id.etObservacion);
 
-        tvIdObra.setText("Identificador de obra: " + String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
-        tvNombreMaterial.setText("Nombre del material: " + ControladorGral.getMaterialSeleccionado().getNombre());
-        tvStock.setText("Stock: " + String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
+            Bundle extras = getIntent().getExtras();
+
+            tvIdObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+            tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
+            tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
     public void RealizarMovimientoOnClick(View v){
 
-        ControladorMovimiento controlador = new ControladorMovimiento();
-
-        DTMovimiento datosMovimiento = new DTMovimiento();
-        String nombreMaterial = "S/N";
-        int idObra = 0;
-        int stock = 0;
-        int cantidad = 0;
-        String observacion = "N/D";
-        boolean exito = false;
-        int nuevoStock = 0;
-        int ultimoId = 0;
-
         try{
 
-            idObra = Integer.parseInt(tvIdObra.getText().toString());
+            ControladorMovimiento controlador = new ControladorMovimiento();
 
-        }catch(Exception ex) {
-            Toast.makeText(this, "Ocurrio un error al convertir el id de obra a entero.", Toast.LENGTH_SHORT);
-        }
-
-        nombreMaterial = tvNombreMaterial.getText().toString();
-
-        try{
-
-            stock = Integer.parseInt(tvStock.getText().toString());
-
-        }catch(Exception ex) {
-            Toast.makeText(this, "Ocurrio un error al convertir el stock a entero.", Toast.LENGTH_SHORT);
-        }
-
-        if(!cbTipo.isChecked()){
+            DTMovimiento datosMovimiento = new DTMovimiento();
+            String nombreMaterial = "S/N";
+            int idObra = 0;
+            int stock = 0;
+            int cantidad = 0;
+            String observacion = "N/D";
+            boolean exito = false;
+            int nuevoStock = 0;
+            int ultimoId = 0;
 
             try{
 
-                cantidad = Integer.parseInt(etCantidad.getText().toString());
+                idObra = Integer.parseInt(tvIdObra.getText().toString());
+
+            }catch(Exception ex) {
+                throw new Exception("Ocurrio un error al convertir el id de obra a entero.");
+
+            }
+
+            nombreMaterial = tvNombreMaterial.getText().toString();
+
+            try{
+
+                stock = Integer.parseInt(tvStock.getText().toString());
+
+            }catch(Exception ex) {
+                throw new Exception("Ocurrio un error al convertir el stock a entero.");
+            }
+
+            if(!cbTipo.isChecked()){
+
+                try{
+
+                    cantidad = Integer.parseInt(etCantidad.getText().toString());
+
+                }catch(Exception ex){
+
+                    throw new Exception("Codigo Convert1: Ocurrio un error al convertir la cantidad ingresada a entero.");
+
+                }
 
                 if(cantidad == 0){
-                    throw new IOException("Error logico: la cantidad ingresada es 0.");
+                    throw new Exception("Error logico: la cantidad ingresada es 0.");
                 }
 
-            }catch(IOException ex){
+            }else{
 
-                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT);
+                try{
 
-            } catch(Exception ex) {
-                Toast.makeText(this, "Codigo Convert1: Ocurrio un error al convertir la cantidad ingresada a entero.", Toast.LENGTH_SHORT);
-            }
+                    cantidad = Integer.parseInt("-" + etCantidad.getText().toString());
 
-        }else{
+                }catch(Exception ex){
 
-            try{
+                    throw new Exception("Codigo Convert2: Ocurrio un error al convertir la cantidad ingresada a entero.");
 
-                cantidad = Integer.parseInt("-" + etCantidad.getText().toString());
-
-                if(stock + (cantidad) == 0){
-                    throw new IOException("Error logico: la cantidad ingresada es superior al stock disponible.");
                 }
 
-
-            }catch(IOException ex){
-
-                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT);
-
-            } catch(Exception ex) {
-                Toast.makeText(this, "Codigo Convert2: Ocurrio un error al convertir la cantidad ingresada a entero.", Toast.LENGTH_SHORT);
+                if(stock + (cantidad) < 0){
+                    throw new Exception("Error logico: la cantidad ingresada es superior al stock disponible.");
+                }
             }
+
+            nuevoStock = stock + cantidad;
+
+            observacion = etObservacion.getText().toString();
+
+            datosMovimiento.setCantidad(cantidad);
+            datosMovimiento.setObservacion(observacion);
+
+            BDHelper helper = new BDHelper(this);
+            SQLiteDatabase bd = helper.getWritableDatabase();
+
+            exito = controlador.realizarMovimiento(datosMovimiento, idObra, nombreMaterial, nuevoStock, bd);
+
+            Intent intencion = new Intent(getApplicationContext(), MaterialInformationActivity.class);
+
+            if(exito){
+                intencion.putExtra("MENSAJE", "Se realizo el movimiento exitosamente!.");
+            }else{
+                intencion.putExtra("MENSAJE", "Se produjo un error al intentar registrar el movimiento!.");
+            }
+
+            ControladorGral.actualizarRepositorio(bd);
+
+            startActivity(intencion);
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
 
-        nuevoStock = stock + cantidad;
 
-        observacion = etObservacion.getText().toString();
-
-        datosMovimiento.setCantidad(cantidad);
-        datosMovimiento.setObservacion(observacion);
-
-        BDHelper helper = new BDHelper(this);
-        SQLiteDatabase bd = helper.getWritableDatabase();
-
-        exito = controlador.realizarMovimiento(datosMovimiento, idObra, nombreMaterial, nuevoStock, bd);
-
-        Intent intencion = new Intent(getApplicationContext(), MaterialInformationActivity.class);
-
-        if(exito){
-            intencion.putExtra("MENSAJE", "Se realizo el movimiento exitosamente!.");
-        }else{
-            intencion.putExtra("MENSAJE", "Se produjo un error al intentar registrar el movimiento!.");
-        }
-
-        ControladorGral.actualizarRepositorio(bd);
-
-        startActivity(intencion);
 
     }
 }

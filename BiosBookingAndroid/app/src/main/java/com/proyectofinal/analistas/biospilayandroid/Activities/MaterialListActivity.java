@@ -21,20 +21,29 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_material_list);
 
-        frgMaterialesList = (MaterialesListFragment) getSupportFragmentManager().findFragmentById(R.id.frgMaterialesList);
+        try{
 
-        Bundle extras = getIntent().getExtras();
+            setContentView(R.layout.activity_material_list);
 
-        if(extras != null){
-            if(extras.getString("MENSAJE") != null){
-                mensaje = extras.getString("MENSAJE");
+            frgMaterialesList = (MaterialesListFragment) getSupportFragmentManager().findFragmentById(R.id.frgMaterialesList);
+
+            Bundle extras = getIntent().getExtras();
+
+            if(extras != null){
+                if(extras.getString("MENSAJE") != null){
+                    mensaje = extras.getString("MENSAJE");
+                }
+
+                if(mensaje != null){
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+                }
             }
 
-            if(mensaje != null){
-                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
-            }
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -50,18 +59,25 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
     @Override
     public void onMaterialSeleccionado(DTMaterial material) {
 
-        MaterialInfoFragment frgDetalleMaterial = (MaterialInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleMaterial);
+        try{
 
-        ControladorGral.SeleccionarMaterial(material.getNombre());
+            MaterialInfoFragment frgDetalleMaterial = (MaterialInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleMaterial);
 
-        if (frgDetalleMaterial != null) {
-            frgDetalleMaterial.mostrarMaterial(material);
-        } else {
-            Intent intencionDetalleMaterial = new Intent(this, MaterialInformationActivity.class);
-            intencionDetalleMaterial.putExtra(EXTRA_MATERIAL, material);
+            ControladorGral.SeleccionarMaterial(material.getNombre());
 
-            startActivity(intencionDetalleMaterial);
+            if (frgDetalleMaterial != null) {
+                frgDetalleMaterial.mostrarMaterial(material);
+            } else {
+                Intent intencionDetalleMaterial = new Intent(this, MaterialInformationActivity.class);
+                intencionDetalleMaterial.putExtra(EXTRA_MATERIAL, material);
+
+                startActivity(intencionDetalleMaterial);
+            }
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
-
     }
 }

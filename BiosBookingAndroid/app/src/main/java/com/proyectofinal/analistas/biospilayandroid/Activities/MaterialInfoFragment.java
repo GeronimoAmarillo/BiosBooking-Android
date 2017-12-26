@@ -16,12 +16,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorMovimientos;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
 import com.proyectofinal.analistas.biospilayandroid.R;
+
+import java.text.SimpleDateFormat;
 
 
 public class MaterialInfoFragment extends Fragment {
@@ -36,6 +39,8 @@ public class MaterialInfoFragment extends Fragment {
     protected TextView tvObra;
     protected ListView lvMovimientos;
     protected FloatingActionButton btnAgregarMovimiento;
+    protected TextView tvFecha;
+
 
     protected DTMaterial material;
 
@@ -63,20 +68,36 @@ public class MaterialInfoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        tvNombreMaterial = (TextView)getView().findViewById(R.id.tvNombreMaterial);
-        tvStock= (TextView)getView().findViewById(R.id.tvStock);
-        tvObra = (TextView)getView().findViewById(R.id.tvObra);
-        lvMovimientos = (ListView) getView().findViewById(R.id.lvMovimientos);
+        try{
+
+            tvNombreMaterial = (TextView)getView().findViewById(R.id.tvNombreMaterial);
+            tvStock= (TextView)getView().findViewById(R.id.tvStock);
+            tvObra = (TextView)getView().findViewById(R.id.tvObra);
+            lvMovimientos = (ListView) getView().findViewById(R.id.lvMovimientos);
+
+            tvFecha = (TextView)getView().findViewById(R.id.tvFechaIngreso);
+
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+            String fecha = formato.format(ControladorGral.getMaterialSeleccionado().getFechaAlta());
+
+            tvFecha.setText(fecha);
+            btnAgregarMovimiento = (FloatingActionButton)getView().findViewById(R.id.btnAgregarMovimiento);
+
+            btnAgregarMovimiento.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    onAgregarMovimientoClick(view);
+                }
+            });
+
+        }catch(Exception ex){
+
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
 
 
-        btnAgregarMovimiento = (FloatingActionButton)getView().findViewById(R.id.btnAgregarMovimiento);
-
-        btnAgregarMovimiento.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                onAgregarMovimientoClick(view);
-            }
-        });
     }
 
     @Override
@@ -88,21 +109,40 @@ public class MaterialInfoFragment extends Fragment {
 
     public void mostrarMaterial(DTMaterial material) {
 
-        tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
-        tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
-        tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+        try{
 
-        AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), ControladorGral.getMaterialSeleccionado().getMovimientos());
-        lvMovimientos.setAdapter(adaptadorMovimientos);
+            tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
+            tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
+            tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
 
-        this.material = material;
+            AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), ControladorGral.getMaterialSeleccionado().getMovimientos());
+            lvMovimientos.setAdapter(adaptadorMovimientos);
+
+            this.material = material;
+
+        }catch(Exception ex){
+
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+
     }
 
     protected void onAgregarMovimientoClick(View view){
 
-        Intent intencion = new Intent(getActivity(), MovimientosActivity.class);
+        try{
 
-        startActivity(intencion);
+            Intent intencion = new Intent(getActivity(), MovimientosActivity.class);
+
+            startActivity(intencion);
+
+        }catch(Exception ex){
+
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
 
     }
 

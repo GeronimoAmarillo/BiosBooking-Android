@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Adaptadores_Utilidades.AdaptadorObras;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
@@ -75,46 +76,52 @@ public class GridObrasFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        try{
 
-        helper = new BDHelper(getActivity());
-        baseDatos = helper.getWritableDatabase();
+            super.onActivityCreated(savedInstanceState);
 
-        ControladorMaterial controlador = new ControladorMaterial();
+            helper = new BDHelper(getActivity());
+            baseDatos = helper.getWritableDatabase();
 
-        gvObras=(GridView)getView().findViewById(R.id.gvObras);
+            ControladorMaterial controlador = new ControladorMaterial();
 
-        boolean datosIniciados = false;
+            gvObras=(GridView)getView().findViewById(R.id.gvObras);
 
-        preferencias = getActivity().getSharedPreferences(MIS_PREFERENCIAS, Context.MODE_PRIVATE);
+            boolean datosIniciados = false;
 
-        datosIniciados = preferencias.getBoolean(PREFERENCIA_INICIALES, false);
+            preferencias = getActivity().getSharedPreferences(MIS_PREFERENCIAS, Context.MODE_PRIVATE);
 
-        ControladorGral.setControlMovimientos(new ControladorMovimiento());
-        ControladorGral.setControlMateriales(new ControladorMaterial());
+            datosIniciados = preferencias.getBoolean(PREFERENCIA_INICIALES, false);
 
-        if(!datosIniciados){
-            controlador.cargarDatosIniciales(baseDatos);
+            ControladorGral.setControlMovimientos(new ControladorMovimiento());
+            ControladorGral.setControlMateriales(new ControladorMaterial());
+
+            if(!datosIniciados){
+                controlador.cargarDatosIniciales(baseDatos);
+
+                ControladorGral.actualizarRepositorio(baseDatos);
+
+                datosInicialesIngresados = true;
+
+                guardarIniciados();
+            }
 
             ControladorGral.actualizarRepositorio(baseDatos);
 
-            datosInicialesIngresados = true;
+            AdaptadorObras adaptadorObras = new AdaptadorObras(getActivity(), ControladorGral.getControlMateriales().getObras());
 
-            guardarIniciados();
+            gvObras.setAdapter(adaptadorObras);
+
+            gvObras.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    gvObrasOnItemClick(parent, view, position, id);
+                }
+            });
+
+        }catch(Exception ex){
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();
         }
-
-        ControladorGral.actualizarRepositorio(baseDatos);
-
-        AdaptadorObras adaptadorObras = new AdaptadorObras(getActivity(), ControladorGral.getControlMateriales().getObras());
-
-        gvObras.setAdapter(adaptadorObras);
-
-        gvObras.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gvObrasOnItemClick(parent, view, position, id);
-            }
-        });
 
     }
 

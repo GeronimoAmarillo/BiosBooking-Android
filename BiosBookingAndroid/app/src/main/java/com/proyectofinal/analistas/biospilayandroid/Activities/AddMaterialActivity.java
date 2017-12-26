@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorMaterial;
@@ -50,71 +51,88 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_material);
+        try{
 
-        tvObra = (TextView)findViewById(R.id.tvObra);
-        etNombreMaterial = (EditText)findViewById(R.id.etNombreMaterial);
-        etDescripcion = (EditText)findViewById(R.id.etDescripcion);
-        etStock = (EditText)findViewById(R.id.etStock);
-        btnAgregarMaterial = (Button)findViewById(R.id.btnAgregarMaterial);
-        etFecha = (EditText)findViewById(R.id.etFecha);
-        etHora = (EditText)findViewById(R.id.etHora);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_add_material);
 
-        controlador = new ControladorMaterial();
+            tvObra = (TextView)findViewById(R.id.tvObra);
+            etNombreMaterial = (EditText)findViewById(R.id.etNombreMaterial);
+            etDescripcion = (EditText)findViewById(R.id.etDescripcion);
+            etStock = (EditText)findViewById(R.id.etStock);
+            btnAgregarMaterial = (Button)findViewById(R.id.btnAgregarMaterial);
+            etFecha = (EditText)findViewById(R.id.etFecha);
+            etHora = (EditText)findViewById(R.id.etHora);
 
-        Bundle extras = getIntent().getExtras();
+            controlador = new ControladorMaterial();
 
-        tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+            Bundle extras = getIntent().getExtras();
 
-        btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
+            tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
 
-            @Override
-            public void onClick(View view) {
-                onAgregarMaterialClick(view);
-            }
-        });
+            btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    onAgregarMaterialClick(view);
+                }
+            });
+
+        }catch(Exception ex){
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void onAgregarMaterialClick(View view) {
 
-        BDHelper helper = new BDHelper(this);
-        SQLiteDatabase bd = helper.getWritableDatabase();
+        try{
 
-        DTMaterial materialAagregar = new DTMaterial();
+            BDHelper helper = new BDHelper(this);
+            SQLiteDatabase bd = helper.getWritableDatabase();
 
-        materialAagregar.setNombre(etNombreMaterial.getText().toString());
-        materialAagregar.setDescripcion(etDescripcion.getText().toString());
-        materialAagregar.setStock(Integer.parseInt(etStock.getText().toString()));
+            DTMaterial materialAagregar = new DTMaterial();
 
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            materialAagregar.setNombre(etNombreMaterial.getText().toString());
+            materialAagregar.setDescripcion(etDescripcion.getText().toString());
+            materialAagregar.setStock(Integer.parseInt(etStock.getText().toString()));
 
-        String fechaTexto = etFecha.getText().toString() + " " + etHora.getText().toString();
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        Date fecha = null;
-        try {
-            fecha = formatoFecha.parse(fechaTexto);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            String fechaTexto = etFecha.getText().toString() + " " + etHora.getText().toString();
+
+            Date fecha = null;
+            try {
+                fecha = formatoFecha.parse(fechaTexto);
+            } catch (ParseException e) {
+                throw new Exception("La fecha ingresada no tiene el formato correcto.");
+            }
+
+            materialAagregar.setFechaAlta(fecha);
+
+            boolean exito = false;
+
+            exito = controlador.AltaMaterial(materialAagregar, ControladorGral.getObraSeleccionada().getIdObra(), bd);
+
+            Intent intencion = new Intent(getApplicationContext(), MaterialListActivity.class);
+
+            if(exito){
+                intencion.putExtra("MENSAJE", "Se realizo el alta de material exitosamente!.");
+            }else{
+                intencion.putExtra("MENSAJE", "Se produjo un error al intentar dar de alta el material!.");
+            }
+
+            ControladorGral.actualizarRepositorio(bd);
+
+            startActivity(intencion);
+
+        }catch(Exception ex){
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
 
-        materialAagregar.setFechaAlta(fecha);
 
-        boolean exito = false;
-
-        exito = controlador.AltaMaterial(materialAagregar, ControladorGral.getObraSeleccionada().getIdObra(), bd);
-
-        Intent intencion = new Intent(getApplicationContext(), MaterialListActivity.class);
-
-        if(exito){
-            intencion.putExtra("MENSAJE", "Se realizo el alta de material exitosamente!.");
-        }else{
-            intencion.putExtra("MENSAJE", "Se produjo un error al intentar dar de alta el material!.");
-        }
-
-        ControladorGral.actualizarRepositorio(bd);
-
-        startActivity(intencion);
     }
 
 
@@ -144,12 +162,22 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Calendar calendario = Calendar.getInstance();
-            int anio = calendario.get(Calendar.YEAR);
-            int mes = calendario.get(Calendar.MONTH);
-            int dia = calendario.get(Calendar.DAY_OF_MONTH);
 
-            return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)getActivity(), anio, mes, dia);
+            try{
+
+                Calendar calendario = Calendar.getInstance();
+                int anio = calendario.get(Calendar.YEAR);
+                int mes = calendario.get(Calendar.MONTH);
+                int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)getActivity(), anio, mes, dia);
+
+            }catch(Exception ex){
+                Toast.makeText(getActivity(), "ERROR: Se produjo un error al generar la fecha", Toast.LENGTH_LONG).show();
+                return null;
+            }
+
+
         }
 
     }
@@ -159,11 +187,21 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Calendar calendario = Calendar.getInstance();
-            int hora = calendario.get(Calendar.HOUR_OF_DAY);
-            int minutos = calendario.get(Calendar.MINUTE);
 
-            return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener)getActivity(), hora, minutos, true);
+            try{
+
+                Calendar calendario = Calendar.getInstance();
+                int hora = calendario.get(Calendar.HOUR_OF_DAY);
+                int minutos = calendario.get(Calendar.MINUTE);
+
+                return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener)getActivity(), hora, minutos, true);
+
+            }catch(Exception ex){
+                Toast.makeText(getActivity(), "ERROR: Se produjo un error al generar la hora", Toast.LENGTH_LONG).show();
+                return null;
+            }
+
+
         }
 
     }

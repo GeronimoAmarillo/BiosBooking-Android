@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
@@ -54,46 +55,69 @@ public class ObraInformationFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        tvIdObra = (TextView)getView().findViewById(R.id.tvIdObra);
-        tvNombreDueño = (TextView)getView().findViewById(R.id.tvDueñoObra);
-        tvDireccion = (TextView)getView().findViewById(R.id.tvDireccionObra);
-        btnMateriales = (Button)getView().findViewById(R.id.btnVerMateriales);
-        tvMetros = (TextView)getView().findViewById(R.id.tvMetrosCuadrados);
-        tvFecha = (TextView)getView().findViewById(R.id.tvFechaContrato);
-        ivFoto = (ImageView)getView().findViewById(R.id.ivFotoObra);
+        try{
 
-        btnMateriales.setOnClickListener(new View.OnClickListener(){
+            tvIdObra = (TextView)getView().findViewById(R.id.tvIdObra);
+            tvNombreDueño = (TextView)getView().findViewById(R.id.tvDueñoObra);
+            tvDireccion = (TextView)getView().findViewById(R.id.tvDireccionObra);
+            btnMateriales = (Button)getView().findViewById(R.id.btnVerMateriales);
+            tvMetros = (TextView)getView().findViewById(R.id.tvMetrosCuadrados);
+            tvFecha = (TextView)getView().findViewById(R.id.tvFechaContrato);
+            ivFoto = (ImageView)getView().findViewById(R.id.ivFotoObra);
 
-            @Override
-            public void onClick(View view) {
-                onClickMateriales(view);
-            }
-        });
+            btnMateriales.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    onClickMateriales(view);
+                }
+            });
+
+        }catch(Exception ex){
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     public void mostrarObra() {
 
-        tvIdObra.setText("Identificador: " + String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
-        tvNombreDueño.setText("Dueño: " + ControladorGral.getObraSeleccionada().getNombreCliente());
-        tvDireccion.setText("Direccion: " + ControladorGral.getObraSeleccionada().getDireccion());
-        Bitmap imagen = (((BitmapDrawable) ContextCompat.getDrawable(getActivity(), Integer.parseInt(ControladorGral.getObraSeleccionada().getFoto()))).getBitmap());
+        try{
 
-        ivFoto.setImageBitmap(imagen);
+            tvIdObra.setText("Identificador: " + String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+            tvNombreDueño.setText("Dueño: " + ControladorGral.getObraSeleccionada().getNombreCliente());
+            tvDireccion.setText("Direccion: " + ControladorGral.getObraSeleccionada().getDireccion());
+            Bitmap imagen = (((BitmapDrawable) ContextCompat.getDrawable(getActivity(), Integer.parseInt(ControladorGral.getObraSeleccionada().getFoto()))).getBitmap());
 
-        tvMetros.setText("Superficie: " + String.valueOf(ControladorGral.getObraSeleccionada().getMetrosCuadrados()) + " mts2");
+            ivFoto.setImageBitmap(imagen);
 
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            tvMetros.setText("Superficie: " + String.valueOf(ControladorGral.getObraSeleccionada().getMetrosCuadrados()) + " mts2");
 
-        String fecha = formato.format(ControladorGral.getObraSeleccionada().getFechadeContrato());
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-        tvFecha.setText("Fecha de contrato: " + fecha);
+            String fecha = formato.format(ControladorGral.getObraSeleccionada().getFechadeContrato());
 
-        this.obra = ControladorGral.getObraSeleccionada();
+            tvFecha.setText("Fecha de contrato: " + fecha);
+
+            this.obra = ControladorGral.getObraSeleccionada();
+
+        }catch(Exception ex){
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     public void onClickMateriales(View v){
-        Intent intencion = new Intent(getActivity().getApplicationContext(), MaterialListActivity.class);
+        try{
 
-        startActivity(intencion);
+            Intent intencion = new Intent(getActivity().getApplicationContext(), MaterialListActivity.class);
+
+            startActivity(intencion);
+
+        }catch(Exception ex){
+            Toast.makeText(getActivity(), "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 }
