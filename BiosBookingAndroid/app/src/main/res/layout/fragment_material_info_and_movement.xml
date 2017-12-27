@@ -105,6 +105,18 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/ivFoto"
+                android:layout_width="300dp"
+                android:layout_height="250dp"
+                android:layout_marginBottom="44dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/btnVerMateriales"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
 
             <ListView
@@ -134,6 +146,7 @@
             app:layout_constraintRight_toLeftOf="parent" />
 
         <TextView
+            android:id="@+id/tvAgregarMovimiento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Agregar Movimiento   "

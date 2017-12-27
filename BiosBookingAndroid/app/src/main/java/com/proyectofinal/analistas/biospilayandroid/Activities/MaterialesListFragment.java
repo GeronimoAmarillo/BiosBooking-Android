@@ -5,17 +5,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
@@ -45,6 +49,7 @@ public class MaterialesListFragment extends Fragment implements AdapterView.OnIt
     private MaterialesListFragment.OnMaterialSeleccionadoListener listener;
     protected ListView lvMateriales;
     protected FloatingActionButton btnAgregarMaterial;
+    protected ImageView imagen;
 
     protected Spinner spFiltro;
 
@@ -92,6 +97,7 @@ public class MaterialesListFragment extends Fragment implements AdapterView.OnIt
 
             lvMateriales=(ListView) getView().findViewById(R.id.lvMateriales);
             btnAgregarMaterial = (FloatingActionButton) getView().findViewById(R.id.btnAgregarMaterial);
+            imagen = (ImageView)getView().findViewById(R.id.ivFoto);
 
             spFiltro = (Spinner)getView().findViewById(R.id.spFiltro);
 
@@ -162,6 +168,17 @@ public class MaterialesListFragment extends Fragment implements AdapterView.OnIt
         try{
 
             final DtObra obraSeleccionada = ControladorGral.getObraSeleccionada();
+
+            if(obraSeleccionada.getMateriales().size() == 0){
+                imagen.setVisibility(getView().VISIBLE);
+
+                Bitmap imagenRecurso = (((BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.sinmateriales))).getBitmap();
+
+                imagen.setImageBitmap(imagenRecurso);
+            }else{
+                imagen.setVisibility(getView().GONE);
+                imagen.setImageBitmap(null);
+            }
 
             adaptador = new AdaptadorMateriales(getActivity(), obraSeleccionada.getMateriales(), obraSeleccionada.getIdObra());
             lvMateriales.setAdapter(adaptador);

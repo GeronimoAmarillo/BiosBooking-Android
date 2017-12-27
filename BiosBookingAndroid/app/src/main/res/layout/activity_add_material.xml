@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.proyectofinal.analistas.biospilayandroid.Activities.AddMaterialActivity"
-    >
+    tools:context="com.proyectofinal.analistas.biospilayandroid.Activities.AddMaterialActivity">
 
     <TextView
         android:id="@+id/tvTituloAgregarMateriales"
@@ -79,14 +78,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btnAgregarMaterial"
-        app:layout_constraintTop_toBottomOf="@+id/etStock"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etStock">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/etFecha"
@@ -95,40 +95,40 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="16dp"
-                android:inputType="date"/>
+                android:inputType="date" />
 
             <Button
                 android:id="@+id/btnElegirFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:text="Elegir Fecha"
-                android:onClick="btnElegirFechaOnClick" />
+                android:onClick="btnElegirFechaOnClick"
+                android:text="Elegir Fecha" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/etHora"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:inputType="time"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:inputType="time" />
 
             <Button
                 android:id="@+id/btnElegirHora"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:text="Elegir Hora"
-                android:onClick="btnElegirHoraOnClick" />
+                android:onClick="btnElegirHoraOnClick"
+                android:text="Elegir Hora" />
 
         </LinearLayout>
 
@@ -161,11 +161,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salir "
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btnSalir"
         android:layout_marginTop="10dp"
-        android:textSize="10sp"/>
+        android:text="Salir "
+        android:textSize="10sp"
+        app:layout_constraintRight_toLeftOf="@+id/btnSalir"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

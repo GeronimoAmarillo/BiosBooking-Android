@@ -87,7 +87,7 @@ public class ObraInformationFragment extends Fragment {
                 tvMetros.setVisibility(getView().INVISIBLE);
                 ivFoto.setVisibility(getView().VISIBLE);
 
-                Bitmap imagen = (((BitmapDrawable)ContextCompat.getDrawable(getActivity(), R.mipmap.seleccion1))).getBitmap();
+                Bitmap imagen = (((BitmapDrawable)ContextCompat.getDrawable(getActivity(), R.mipmap.seleccionarobra))).getBitmap();
 
                 ivFoto.setImageBitmap(imagen);
 
@@ -134,8 +134,12 @@ public class ObraInformationFragment extends Fragment {
                 tvNombreDueño.setVisibility(getView().INVISIBLE);
                 tvDireccion.setVisibility(getView().INVISIBLE);
                 tvMetros.setVisibility(getView().INVISIBLE);
-                ivFoto.setVisibility(getView().INVISIBLE);
                 tvFecha.setVisibility(getView().INVISIBLE);
+                ivFoto.setVisibility(getView().VISIBLE);
+
+                Bitmap imagen = (((BitmapDrawable)ContextCompat.getDrawable(getActivity(), R.mipmap.seleccionarobra))).getBitmap();
+
+                ivFoto.setImageBitmap(imagen);
             }else{
 
                 btnMateriales.setVisibility(getView().VISIBLE);

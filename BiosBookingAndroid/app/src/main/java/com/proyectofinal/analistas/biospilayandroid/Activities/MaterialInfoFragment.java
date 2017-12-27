@@ -3,11 +3,14 @@ package com.proyectofinal.analistas.biospilayandroid.Activities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +47,8 @@ public class MaterialInfoFragment extends Fragment {
     protected TextView tvLabelStock;
     protected TextView tvLabelObra;
     protected TextView tvLabelFecha;
+    protected ImageView imagen;
+    protected TextView tvAgregarMovimiento;
 
 
 
@@ -84,6 +89,9 @@ public class MaterialInfoFragment extends Fragment {
             tvLabelNombre = (TextView)getView().findViewById(R.id.tvLabelMaterial);
             tvLabelObra = (TextView)getView().findViewById(R.id.tvLabelObra);
             tvLabelStock =(TextView)getView().findViewById(R.id.tvLabelStock);
+            tvAgregarMovimiento = (TextView)getView().findViewById(R.id.tvAgregarMovimiento);
+
+            imagen = (ImageView)getView().findViewById(R.id.ivFoto);
 
             tvFecha = (TextView)getView().findViewById(R.id.tvFechaIngreso);
 
@@ -147,7 +155,6 @@ public class MaterialInfoFragment extends Fragment {
             if(ControladorGral.getMaterialSeleccionado() == null) {
 
                 etiquetasInvisibles();
-
 
             }else{
 
@@ -217,6 +224,11 @@ public class MaterialInfoFragment extends Fragment {
         tvLabelObra.setVisibility(getView().INVISIBLE);
         tvLabelNombre.setVisibility(getView().INVISIBLE);
         tvLabelFecha.setVisibility(getView().INVISIBLE);
+        tvAgregarMovimiento.setVisibility(getView().INVISIBLE);
+        imagen.setVisibility(getView().VISIBLE);
+        Bitmap imagenRecurso = (((BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.seleccionematerial))).getBitmap();
+
+        imagen.setImageBitmap(imagenRecurso);
     }
     public void etiquetasVisibles(){
         tvNombreMaterial.setVisibility(getView().VISIBLE);
@@ -229,6 +241,9 @@ public class MaterialInfoFragment extends Fragment {
         tvLabelFecha.setVisibility(getView().VISIBLE);
         tvLabelObra.setVisibility(getView().VISIBLE);
         tvLabelStock.setVisibility(getView().VISIBLE);
+        tvAgregarMovimiento.setVisibility(getView().VISIBLE);
+        imagen.setVisibility(View.GONE);
+        imagen.setImageBitmap(null);
     }
 
 }
