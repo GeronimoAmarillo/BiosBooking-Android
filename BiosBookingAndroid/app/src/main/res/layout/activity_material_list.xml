@@ -30,10 +30,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salir "
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btnSalir"
         android:layout_marginTop="10dp"
-        android:textSize="10sp"/>
+        android:text="Salir "
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        app:layout_constraintRight_toLeftOf="@+id/btnSalir"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

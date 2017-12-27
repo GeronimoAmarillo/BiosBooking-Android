@@ -36,8 +36,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnSalir"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:clickable="true"
         app:backgroundTint="@color/black_overlay"
         app:srcCompat="@android:drawable/ic_lock_power_off"
@@ -53,6 +53,6 @@
         android:text="Salir "
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/btnSalir"
-        android:layout_marginTop="10dp"
-        android:textSize="10sp"/>
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"/>
 </android.support.constraint.ConstraintLayout>

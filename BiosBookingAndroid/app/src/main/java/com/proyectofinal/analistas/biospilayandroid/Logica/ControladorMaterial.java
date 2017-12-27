@@ -200,39 +200,50 @@ public class ControladorMaterial implements Serializable{
 
     public boolean AltaMaterial(DTMaterial material, int idObra, SQLiteDatabase bd) throws Exception {
 
+        boolean existe = false;
 
-
-        try{
-
-            ContentValues valores = new ContentValues();
-
-            bd.beginTransaction();
-
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-            String fecha = formato.format(material.getFechaAlta());
-
-            try {
-                valores.put(BDContract.Materiales.COLUMNA_NOMBRE, material.getNombre());
-                valores.put(BDContract.Materiales.COLUMNA_DESCRIPCION, material.getDescripcion());
-                valores.put(BDContract.Materiales.COLUMNA_STOCK, material.getStock());
-                valores.put(BDContract.Materiales.COLUMNA_FECHA_ALTA, fecha);
-                valores.put(BDContract.Materiales.COLUMNA_OBRA, idObra);
-                bd.insert(BDContract.TABLA_MATERIAL, null, valores);
-
-                bd.setTransactionSuccessful();
-
-                return true;
-            } catch (Exception ex) {
-                Log.e(MIS_LOGS, "No se pudo insertar el material!.");
-
-                return false;
-            } finally {
-                bd.endTransaction();
+        for (DTMaterial m : ControladorGral.getObraSeleccionada().getMateriales()){
+            if(material.getNombre().toLowerCase().equals(m.getNombre().toLowerCase())){
+                existe = true;
+                break;
             }
+        }
 
-        }catch(Exception ex){
-            throw new Exception("ERROR: " + ex.getMessage());
+        if(existe){
+            throw new Exception("El material que desea ingresar ya existe en esta obra.");
+        }else{
+            try{
+
+                ContentValues valores = new ContentValues();
+
+                bd.beginTransaction();
+
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+                String fecha = formato.format(material.getFechaAlta());
+
+                try {
+                    valores.put(BDContract.Materiales.COLUMNA_NOMBRE, material.getNombre());
+                    valores.put(BDContract.Materiales.COLUMNA_DESCRIPCION, material.getDescripcion());
+                    valores.put(BDContract.Materiales.COLUMNA_STOCK, material.getStock());
+                    valores.put(BDContract.Materiales.COLUMNA_FECHA_ALTA, fecha);
+                    valores.put(BDContract.Materiales.COLUMNA_OBRA, idObra);
+                    bd.insert(BDContract.TABLA_MATERIAL, null, valores);
+
+                    bd.setTransactionSuccessful();
+
+                    return true;
+                } catch (Exception ex) {
+                    Log.e(MIS_LOGS, "No se pudo insertar el material!.");
+
+                    return false;
+                } finally {
+                    bd.endTransaction();
+                }
+
+            }catch(Exception ex){
+                throw new Exception("ERROR: " + ex.getMessage());
+            }
         }
 
     }

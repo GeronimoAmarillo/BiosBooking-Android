@@ -15,6 +15,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@android:color/background_light"
+                    android:text="Información de material: "
+                    android:textColor="@android:color/background_dark" />
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,6 +135,20 @@
 
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@android:color/background_light"
+                    android:text="Lista de movimientos realizados: "
+                    android:textColor="@android:color/background_dark" />
+            </LinearLayout>
             <ListView
                 android:id="@+id/lvMovimientos"
                 android:layout_width="match_parent"
