@@ -52,7 +52,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="8dp"
             android:tint="@android:color/holo_green_light"
-            app:backgroundTint="@color/black_overlay"
+            app:backgroundTint="@color/colorAccent"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_input_add" />
 
