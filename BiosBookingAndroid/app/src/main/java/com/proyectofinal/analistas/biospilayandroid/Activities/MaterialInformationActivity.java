@@ -39,6 +39,13 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
                 }
             }
 
+            btnSalir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btnSalirOnClick(view);
+                }
+            });
+
         }catch(Exception ex){
 
             Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();

@@ -83,6 +83,13 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
                 }
             });
 
+            btnSalir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btnSalirOnClick(view);
+                }
+            });
+
         }catch(Exception ex){
             Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();
         }

@@ -82,6 +82,13 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
                 startActivity(intencionDetalleMaterial);
             }
 
+            btnSalir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btnSalirOnClick(view);
+                }
+            });
+
         }catch(Exception ex){
 
             Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();

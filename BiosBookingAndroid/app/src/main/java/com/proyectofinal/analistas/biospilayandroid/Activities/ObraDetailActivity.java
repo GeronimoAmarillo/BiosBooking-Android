@@ -30,6 +30,13 @@ public class ObraDetailActivity extends AppCompatActivity /*implements ObraInfor
             frgDetalleObra = (ObraInformationFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleObra);
             btnSalir = (FloatingActionButton)findViewById(R.id.btnSalir);
 
+            btnSalir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btnSalirOnClick(view);
+                }
+            });
+
 
         }catch(Exception ex){
             Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();

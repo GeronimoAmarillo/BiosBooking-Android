@@ -26,6 +26,13 @@ public class MainActivity extends AppCompatActivity implements GridObrasFragment
         setContentView(R.layout.activity_main);
 
         btnSalir = (FloatingActionButton)findViewById(R.id.btnSalir);
+
+        btnSalir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnSalirOnClick(view);
+            }
+        });
     }
 
     @Override

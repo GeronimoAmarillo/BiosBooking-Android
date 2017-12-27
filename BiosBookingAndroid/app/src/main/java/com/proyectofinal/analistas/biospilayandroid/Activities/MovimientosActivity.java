@@ -56,6 +56,14 @@ public class MovimientosActivity extends AppCompatActivity {
             tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
             tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
 
+
+            btnSalir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btnSalirOnClick(view);
+                }
+            });
+
         }catch(Exception ex){
 
             Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
