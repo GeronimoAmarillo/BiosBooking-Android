@@ -124,6 +124,25 @@
 
     </LinearLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnSalir"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:backgroundTint="@color/black_overlay"
+        app:srcCompat="@android:drawable/ic_lock_power_off"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:onClick="btnSalirOnClick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salir "
+        android:layout_toLeftOf="@+id/btnSalir"
+        android:layout_marginTop="10dp"
+        android:textSize="10sp"/>
+
 
 
 </RelativeLayout>

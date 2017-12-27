@@ -2,6 +2,7 @@ package com.proyectofinal.analistas.biospilayandroid.Activities;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,7 @@ public class MovimientosActivity extends AppCompatActivity {
     protected CheckBox cbTipo;
     protected EditText etCantidad;
     protected EditText etObservacion;
+    FloatingActionButton btnSalir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class MovimientosActivity extends AppCompatActivity {
             cbTipo = (CheckBox)findViewById(R.id.cbTipoMovimiento);
             etCantidad = (EditText)findViewById(R.id.etCantidad);
             etObservacion = (EditText)findViewById(R.id.etObservacion);
+            btnSalir = (FloatingActionButton)findViewById(R.id.btnSalir);
 
             Bundle extras = getIntent().getExtras();
 
@@ -155,5 +158,14 @@ public class MovimientosActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    protected void btnSalirOnClick(View v){
+        finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

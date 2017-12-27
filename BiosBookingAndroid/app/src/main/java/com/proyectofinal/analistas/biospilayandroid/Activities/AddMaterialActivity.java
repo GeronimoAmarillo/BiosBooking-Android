@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
     EditText etDescripcion;
     EditText etStock;
     Button btnAgregarMaterial;
+    FloatingActionButton btnSalir;
 
     ControladorMaterial controlador;
 
@@ -52,10 +54,10 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try{
-
+            super.onCreate(savedInstanceState);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            super.onCreate(savedInstanceState);
+
             setContentView(R.layout.activity_add_material);
 
             tvObra = (TextView)findViewById(R.id.tvObra);
@@ -65,6 +67,7 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
             btnAgregarMaterial = (Button)findViewById(R.id.btnAgregarMaterial);
             etFecha = (EditText)findViewById(R.id.etFecha);
             etHora = (EditText)findViewById(R.id.etHora);
+            btnSalir = (FloatingActionButton)findViewById(R.id.btnSalir);
 
             controlador = new ControladorMaterial();
 
@@ -247,5 +250,13 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
 
         }
 
+    }
+
+    public void btnSalirOnClick(View v){
+        finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

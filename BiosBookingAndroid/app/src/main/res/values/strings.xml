@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BiosBooking (Android)</string>
+    <string name="app_name">BiosPilay - Sistema Administrativo</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>

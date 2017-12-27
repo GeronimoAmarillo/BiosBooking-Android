@@ -2,10 +2,12 @@ package com.proyectofinal.analistas.biospilayandroid.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Logica.ControladorGral;
@@ -16,12 +18,14 @@ public class MainActivity extends AppCompatActivity implements GridObrasFragment
 
     public static final String EXTRA_OBRA = "EXTRA_OBRA";
     MaterialesListFragment frgMaterialesList;
+    FloatingActionButton btnSalir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btnSalir = (FloatingActionButton)findViewById(R.id.btnSalir);
     }
 
     @Override
@@ -70,4 +74,12 @@ public class MainActivity extends AppCompatActivity implements GridObrasFragment
 
         }
     }*/
+
+    protected void btnSalirOnClick(View v){
+        finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

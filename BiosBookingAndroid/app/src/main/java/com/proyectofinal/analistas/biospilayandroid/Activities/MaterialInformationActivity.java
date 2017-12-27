@@ -1,8 +1,10 @@
 package com.proyectofinal.analistas.biospilayandroid.Activities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Logica.DTMaterial;
@@ -14,6 +16,7 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
     String mensaje;
 
     private MaterialInfoFragment frgMaterialInfo;
+    FloatingActionButton btnSalir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
             setContentView(R.layout.activity_material_information);
 
             frgMaterialInfo = (MaterialInfoFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleMaterial);
+            btnSalir = (FloatingActionButton)findViewById(R.id.btnSalir);
 
             Bundle extras = getIntent().getExtras();
 
@@ -65,4 +69,13 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
 
 
     }
+
+    protected void btnSalirOnClick(View v){
+        finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 }

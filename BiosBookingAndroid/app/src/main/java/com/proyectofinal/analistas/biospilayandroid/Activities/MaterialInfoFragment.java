@@ -40,6 +40,10 @@ public class MaterialInfoFragment extends Fragment {
     protected ListView lvMovimientos;
     protected FloatingActionButton btnAgregarMovimiento;
     protected TextView tvFecha;
+    protected TextView tvLabelNombre;
+    protected TextView tvLabelStock;
+    protected TextView tvLabelObra;
+    protected TextView tvLabelFecha;
 
 
 
@@ -76,41 +80,43 @@ public class MaterialInfoFragment extends Fragment {
             tvStock= (TextView)getView().findViewById(R.id.tvStock);
             tvObra = (TextView)getView().findViewById(R.id.tvObra);
             lvMovimientos = (ListView) getView().findViewById(R.id.lvMovimientos);
+            tvLabelFecha = (TextView)getView().findViewById(R.id.tvLabelFecha);
+            tvLabelNombre = (TextView)getView().findViewById(R.id.tvLabelMaterial);
+            tvLabelObra = (TextView)getView().findViewById(R.id.tvLabelObra);
+            tvLabelStock =(TextView)getView().findViewById(R.id.tvLabelStock);
 
             tvFecha = (TextView)getView().findViewById(R.id.tvFechaIngreso);
 
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-            String fecha = "Fecha";
-
-            if(ControladorGral.getMaterialSeleccionado() != null){
-
-                fecha = formato.format(ControladorGral.getMaterialSeleccionado().getFechaAlta());
-
-            }
-
-            tvFecha.setText(fecha);
             btnAgregarMovimiento = (FloatingActionButton)getView().findViewById(R.id.btnAgregarMovimiento);
 
             if(ControladorGral.getMaterialSeleccionado() == null) {
 
-                tvNombreMaterial.setVisibility(getView().INVISIBLE);
-                tvStock.setVisibility(getView().INVISIBLE);
-                tvObra.setVisibility(getView().INVISIBLE);
-                lvMovimientos.setVisibility(getView().INVISIBLE);
-                tvFecha.setVisibility(getView().INVISIBLE);
-                btnAgregarMovimiento.setVisibility(getView().INVISIBLE);
+                etiquetasInvisibles();
 
 
             }else{
 
-                tvNombreMaterial.setVisibility(getView().VISIBLE);
-                tvStock.setVisibility(getView().VISIBLE);
-                tvObra.setVisibility(getView().VISIBLE);
-                lvMovimientos.setVisibility(getView().VISIBLE);
-                tvFecha.setVisibility(getView().VISIBLE);
-                btnAgregarMovimiento.setVisibility(getView().VISIBLE);
+                etiquetasVisibles();
 
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+                String fecha = "Fecha";
+
+                if(ControladorGral.getMaterialSeleccionado() != null){
+
+                    fecha = formato.format(ControladorGral.getMaterialSeleccionado().getFechaAlta());
+
+                }
+
+                tvFecha.setText(fecha);
+
+                tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
+                tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
+                tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+
+                AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), ControladorGral.getMaterialSeleccionado().getMovimientos());
+                lvMovimientos.setAdapter(adaptadorMovimientos);
             }
 
             btnAgregarMovimiento.setOnClickListener(new View.OnClickListener(){
@@ -140,22 +146,24 @@ public class MaterialInfoFragment extends Fragment {
 
             if(ControladorGral.getMaterialSeleccionado() == null) {
 
-                tvNombreMaterial.setVisibility(getView().INVISIBLE);
-                tvStock.setVisibility(getView().INVISIBLE);
-                tvObra.setVisibility(getView().INVISIBLE);
-                lvMovimientos.setVisibility(getView().INVISIBLE);
-                tvFecha.setVisibility(getView().INVISIBLE);
-                btnAgregarMovimiento.setVisibility(getView().INVISIBLE);
+                etiquetasInvisibles();
 
 
             }else{
 
-                tvNombreMaterial.setVisibility(getView().VISIBLE);
-                tvStock.setVisibility(getView().VISIBLE);
-                tvObra.setVisibility(getView().VISIBLE);
-                lvMovimientos.setVisibility(getView().VISIBLE);
-                tvFecha.setVisibility(getView().VISIBLE);
-                btnAgregarMovimiento.setVisibility(getView().VISIBLE);
+                etiquetasVisibles();
+
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+                String fecha = "Fecha";
+
+                if(ControladorGral.getMaterialSeleccionado() != null){
+
+                    fecha = formato.format(ControladorGral.getMaterialSeleccionado().getFechaAlta());
+
+                }
+
+                tvFecha.setText(fecha);
 
                 tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
                 tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
@@ -196,6 +204,31 @@ public class MaterialInfoFragment extends Fragment {
 
         void OnMaterialSeleccionado(DtObra obra);
 
+    }
+
+    public void etiquetasInvisibles(){
+        tvNombreMaterial.setVisibility(getView().INVISIBLE);
+        tvStock.setVisibility(getView().INVISIBLE);
+        tvObra.setVisibility(getView().INVISIBLE);
+        lvMovimientos.setVisibility(getView().INVISIBLE);
+        tvFecha.setVisibility(getView().INVISIBLE);
+        btnAgregarMovimiento.setVisibility(getView().INVISIBLE);
+        tvLabelStock.setVisibility(getView().INVISIBLE);
+        tvLabelObra.setVisibility(getView().INVISIBLE);
+        tvLabelNombre.setVisibility(getView().INVISIBLE);
+        tvLabelFecha.setVisibility(getView().INVISIBLE);
+    }
+    public void etiquetasVisibles(){
+        tvNombreMaterial.setVisibility(getView().VISIBLE);
+        tvStock.setVisibility(getView().VISIBLE);
+        tvObra.setVisibility(getView().VISIBLE);
+        lvMovimientos.setVisibility(getView().VISIBLE);
+        tvFecha.setVisibility(getView().VISIBLE);
+        btnAgregarMovimiento.setVisibility(getView().VISIBLE);
+        tvLabelNombre.setVisibility(getView().VISIBLE);
+        tvLabelFecha.setVisibility(getView().VISIBLE);
+        tvLabelObra.setVisibility(getView().VISIBLE);
+        tvLabelStock.setVisibility(getView().VISIBLE);
     }
 
 }

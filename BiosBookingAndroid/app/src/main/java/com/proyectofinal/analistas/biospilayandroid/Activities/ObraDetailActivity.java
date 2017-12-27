@@ -1,8 +1,10 @@
 package com.proyectofinal.analistas.biospilayandroid.Activities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.proyectofinal.analistas.biospilayandroid.Logica.DtObra;
@@ -12,6 +14,7 @@ public class ObraDetailActivity extends AppCompatActivity /*implements ObraInfor
 
     ObraInformationFragment frgDetalleObra;
     MaterialesListFragment frgMaterialesList;
+    FloatingActionButton btnSalir;
 
 
 
@@ -25,6 +28,7 @@ public class ObraDetailActivity extends AppCompatActivity /*implements ObraInfor
             setContentView(R.layout.activity_obra_detail);
 
             frgDetalleObra = (ObraInformationFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleObra);
+            btnSalir = (FloatingActionButton)findViewById(R.id.btnSalir);
 
 
         }catch(Exception ex){
@@ -67,4 +71,12 @@ public class ObraDetailActivity extends AppCompatActivity /*implements ObraInfor
 
         }
     }*/
+
+    protected void btnSalirOnClick(View v){
+        finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }
