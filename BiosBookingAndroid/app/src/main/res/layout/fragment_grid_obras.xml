@@ -10,5 +10,10 @@
         android:id="@+id/gvObras"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"/>
+        android:numColumns="2"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="3dp"
+        android:horizontalSpacing="3dp"
+        />
 </FrameLayout>
