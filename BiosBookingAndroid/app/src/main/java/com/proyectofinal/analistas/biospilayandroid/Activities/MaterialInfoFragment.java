@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class MaterialInfoFragment extends Fragment {
     protected TextView tvLabelFecha;
     protected ImageView imagen;
     protected TextView tvAgregarMovimiento;
+    protected LinearLayout llMovimientos;
 
 
 
@@ -90,6 +92,7 @@ public class MaterialInfoFragment extends Fragment {
             tvLabelObra = (TextView)getView().findViewById(R.id.tvLabelObra);
             tvLabelStock =(TextView)getView().findViewById(R.id.tvLabelStock);
             tvAgregarMovimiento = (TextView)getView().findViewById(R.id.tvAgregarMovimiento);
+            llMovimientos = (LinearLayout)getView().findViewById(R.id.llMovimientos);
 
             imagen = (ImageView)getView().findViewById(R.id.ivFoto);
 
@@ -226,6 +229,7 @@ public class MaterialInfoFragment extends Fragment {
         tvLabelFecha.setVisibility(getView().INVISIBLE);
         tvAgregarMovimiento.setVisibility(getView().INVISIBLE);
         imagen.setVisibility(getView().VISIBLE);
+        llMovimientos.setVisibility(getView().INVISIBLE);
         Bitmap imagenRecurso = (((BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.seleccionematerial))).getBitmap();
 
         imagen.setImageBitmap(imagenRecurso);
@@ -242,6 +246,7 @@ public class MaterialInfoFragment extends Fragment {
         tvLabelObra.setVisibility(getView().VISIBLE);
         tvLabelStock.setVisibility(getView().VISIBLE);
         tvAgregarMovimiento.setVisibility(getView().VISIBLE);
+        llMovimientos.setVisibility(View.VISIBLE);
         imagen.setVisibility(View.GONE);
         imagen.setImageBitmap(null);
     }

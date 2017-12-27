@@ -6,15 +6,37 @@
     >
 
     <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <GridView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:orientation="horizontal">
 
-        android:id="@+id/gvObras"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"
-        android:gravity="center"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="3dp"
-        android:horizontalSpacing="3dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@android:color/background_light"
+                android:text="Lista de Obras: "
+                android:textColor="@android:color/background_dark" />
+        </LinearLayout>
+
+        <GridView
+
+            android:id="@+id/gvObras"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:gravity="center"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="3dp"
+            android:horizontalSpacing="3dp"/>
+
+    </LinearLayout>
+
 </FrameLayout>
