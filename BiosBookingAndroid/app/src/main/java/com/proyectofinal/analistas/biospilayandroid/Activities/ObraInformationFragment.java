@@ -96,13 +96,30 @@ public class ObraInformationFragment extends Fragment {
 
             }else{
 
-                btnMateriales.setVisibility(getView().INVISIBLE);
-                tvIdObra.setVisibility(getView().INVISIBLE);
-                tvNombreDueño.setVisibility(getView().INVISIBLE);
-                tvDireccion.setVisibility(getView().INVISIBLE);
-                tvMetros.setVisibility(getView().INVISIBLE);
-                ivFoto.setVisibility(getView().INVISIBLE);
-                tvFecha.setVisibility(getView().INVISIBLE);
+                btnMateriales.setVisibility(getView().VISIBLE);
+                tvIdObra.setVisibility(getView().VISIBLE);
+                tvNombreDueño.setVisibility(getView().VISIBLE);
+                tvDireccion.setVisibility(getView().VISIBLE);
+                tvMetros.setVisibility(getView().VISIBLE);
+                ivFoto.setVisibility(getView().VISIBLE);
+                tvFecha.setVisibility(getView().VISIBLE);
+
+                tvIdObra.setText("Identificador: " + String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+                tvNombreDueño.setText("Dueño: " + ControladorGral.getObraSeleccionada().getNombreCliente());
+                tvDireccion.setText("Direccion: " + ControladorGral.getObraSeleccionada().getDireccion());
+                Bitmap imagen = (((BitmapDrawable) ContextCompat.getDrawable(getActivity(), Integer.parseInt(ControladorGral.getObraSeleccionada().getFoto()))).getBitmap());
+
+                ivFoto.setImageBitmap(imagen);
+
+                tvMetros.setText("Superficie: " + String.valueOf(ControladorGral.getObraSeleccionada().getMetrosCuadrados()) + " mts2");
+
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+                String fecha = formato.format(ControladorGral.getObraSeleccionada().getFechadeContrato());
+
+                tvFecha.setText("Fecha de contrato: " + fecha);
+
+                this.obra = ControladorGral.getObraSeleccionada();
 
             }
 
@@ -191,6 +208,8 @@ public class ObraInformationFragment extends Fragment {
         try{
 
             Intent intencion = new Intent(getActivity().getApplicationContext(), MaterialListActivity.class);
+
+            ControladorGral.SeleccionarMaterial("");
 
             startActivity(intencion);
 
