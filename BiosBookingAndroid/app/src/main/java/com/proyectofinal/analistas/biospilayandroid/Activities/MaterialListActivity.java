@@ -22,6 +22,8 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         try{
 
             setContentView(R.layout.activity_material_list);
@@ -68,7 +70,7 @@ public class MaterialListActivity extends AppCompatActivity implements Materiale
             ControladorGral.SeleccionarMaterial(material.getNombre());
 
             if (frgDetalleMaterial != null) {
-                frgDetalleMaterial.mostrarMaterial(material);
+                frgDetalleMaterial.mostrarMaterial();
             } else {
                 Intent intencionDetalleMaterial = new Intent(this, MaterialInformationActivity.class);
                 intencionDetalleMaterial.putExtra(EXTRA_MATERIAL, material);

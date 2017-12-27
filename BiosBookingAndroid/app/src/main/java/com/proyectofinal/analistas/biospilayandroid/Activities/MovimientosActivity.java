@@ -36,6 +36,8 @@ public class MovimientosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimientos);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         try{
 
             tvIdObra = (TextView)findViewById(R.id.tvObra);
@@ -47,7 +49,7 @@ public class MovimientosActivity extends AppCompatActivity {
 
             Bundle extras = getIntent().getExtras();
 
-            tvIdObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+            tvIdObra.setText(ControladorGral.getObraSeleccionada().getDireccion());
             tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
             tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
 
@@ -75,14 +77,8 @@ public class MovimientosActivity extends AppCompatActivity {
             int nuevoStock = 0;
             int ultimoId = 0;
 
-            try{
 
-                idObra = Integer.parseInt(tvIdObra.getText().toString());
-
-            }catch(Exception ex) {
-                throw new Exception("Ocurrio un error al convertir el id de obra a entero.");
-
-            }
+             idObra = ControladorGral.getObraSeleccionada().getIdObra();
 
             nombreMaterial = tvNombreMaterial.getText().toString();
 

@@ -13,20 +13,19 @@ public class ObraDetailActivity extends AppCompatActivity /*implements ObraInfor
     ObraInformationFragment frgDetalleObra;
     MaterialesListFragment frgMaterialesList;
 
-    DtObra obra;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         try{
 
             setContentView(R.layout.activity_obra_detail);
 
             frgDetalleObra = (ObraInformationFragment) getSupportFragmentManager().findFragmentById(R.id.frgDetalleObra);
 
-            Bundle extras = getIntent().getExtras();
-            obra = (DtObra)extras.getSerializable(MainActivity.EXTRA_OBRA);
 
         }catch(Exception ex){
             Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_LONG).show();

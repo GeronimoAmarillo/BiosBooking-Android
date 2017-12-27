@@ -52,9 +52,16 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="8dp"
             android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btnAgregarMaterial"
+            android:text="Agregar Material   "
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:textSize="20sp"/>
 
     </RelativeLayout>
 </FrameLayout>

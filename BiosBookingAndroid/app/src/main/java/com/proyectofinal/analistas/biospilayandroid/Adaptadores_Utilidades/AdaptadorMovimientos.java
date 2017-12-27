@@ -88,12 +88,12 @@ public class AdaptadorMovimientos extends BaseAdapter {
             if(String.valueOf(simbolo).equals("-")){
 
                 tvCantidad.setText(String.valueOf(movimiento.getCantidad()).substring(1, String.valueOf(movimiento.getCantidad()).length()));
-                tvTipo.setText("Alta");
+                tvTipo.setText("Baja");
 
             }else{
 
                 tvCantidad.setText(String.valueOf(movimiento.getCantidad()));
-                tvTipo.setText("Baja");
+                tvTipo.setText("Alta");
 
             }
 

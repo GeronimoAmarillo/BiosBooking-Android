@@ -53,6 +53,8 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
     protected void onCreate(Bundle savedInstanceState) {
         try{
 
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_add_material);
 
@@ -68,7 +70,7 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
 
             Bundle extras = getIntent().getExtras();
 
-            tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+            tvObra.setText(ControladorGral.getObraSeleccionada().getDireccion());
 
             btnAgregarMaterial.setOnClickListener(new View.OnClickListener(){
 
@@ -93,9 +95,21 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
 
             DTMaterial materialAagregar = new DTMaterial();
 
-            materialAagregar.setNombre(etNombreMaterial.getText().toString());
+            if(etNombreMaterial.getText().toString().length() < 1){
+                throw new Exception("Debe ingresar el nombre del material");
+            }else{
+                materialAagregar.setNombre(etNombreMaterial.getText().toString());
+            }
+
             materialAagregar.setDescripcion(etDescripcion.getText().toString());
-            materialAagregar.setStock(Integer.parseInt(etStock.getText().toString()));
+
+            try{
+
+                materialAagregar.setStock(Integer.parseInt(etStock.getText().toString()));
+
+            }catch (Exception ex){
+                throw new Exception("Error al convertir el stock ingresado.");
+            }
 
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -105,7 +119,7 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
             try {
                 fecha = formatoFecha.parse(fechaTexto);
             } catch (ParseException e) {
-                throw new Exception("La fecha ingresada no tiene el formato correcto.");
+                throw new Exception("La fecha no fue ingresada o no tiene el formato correcto.");
             }
 
             materialAagregar.setFechaAlta(fecha);
@@ -148,8 +162,35 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        etFecha.setText(String.format("%1$02d", dayOfMonth) + "/" + String.format("%1$02d", (month + 1)) + "/" + year);
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth){
+
+
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        String fechaTexto = String.format("%1$02d", dayOfMonth) + "/" + String.format("%1$02d", (month + 1)) + "/" + year + " 00:00:00";
+
+        Date fechaElejida = null;
+        try {
+
+            fechaElejida = formato.parse(fechaTexto);
+
+        } catch (Exception ex) {
+
+            Toast.makeText(this, "ERROR: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+
+        Date fechaActual = new Date();
+
+        if(fechaElejida.getTime() > fechaActual.getTime()){
+
+            Toast.makeText(this, "ERROR: No puede seleccionar una fecha posterior a hoy.", Toast.LENGTH_SHORT).show();
+
+        }else{
+
+            etFecha.setText(String.format("%1$02d", dayOfMonth) + "/" + String.format("%1$02d", (month + 1)) + "/" + year);
+
+        }
     }
 
     @Override
@@ -170,7 +211,9 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
                 int mes = calendario.get(Calendar.MONTH);
                 int dia = calendario.get(Calendar.DAY_OF_MONTH);
 
-                return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)getActivity(), anio, mes, dia);
+                DatePickerDialog picker = new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)getActivity(), anio, mes, dia);
+
+                return picker;
 
             }catch(Exception ex){
                 Toast.makeText(getActivity(), "ERROR: Se produjo un error al generar la fecha", Toast.LENGTH_LONG).show();

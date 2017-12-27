@@ -92,6 +92,27 @@ public class MaterialInfoFragment extends Fragment {
             tvFecha.setText(fecha);
             btnAgregarMovimiento = (FloatingActionButton)getView().findViewById(R.id.btnAgregarMovimiento);
 
+            if(ControladorGral.getMaterialSeleccionado() == null) {
+
+                tvNombreMaterial.setVisibility(getView().INVISIBLE);
+                tvStock.setVisibility(getView().INVISIBLE);
+                tvObra.setVisibility(getView().INVISIBLE);
+                lvMovimientos.setVisibility(getView().INVISIBLE);
+                tvFecha.setVisibility(getView().INVISIBLE);
+                btnAgregarMovimiento.setVisibility(getView().INVISIBLE);
+
+
+            }else{
+
+                tvNombreMaterial.setVisibility(getView().VISIBLE);
+                tvStock.setVisibility(getView().VISIBLE);
+                tvObra.setVisibility(getView().VISIBLE);
+                lvMovimientos.setVisibility(getView().VISIBLE);
+                tvFecha.setVisibility(getView().VISIBLE);
+                btnAgregarMovimiento.setVisibility(getView().VISIBLE);
+
+            }
+
             btnAgregarMovimiento.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
@@ -113,18 +134,37 @@ public class MaterialInfoFragment extends Fragment {
         listener = null;
     }
 
-    public void mostrarMaterial(DTMaterial material) {
+    public void mostrarMaterial() {
 
         try{
 
-            tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
-            tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
-            tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+            if(ControladorGral.getMaterialSeleccionado() == null) {
 
-            AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), ControladorGral.getMaterialSeleccionado().getMovimientos());
-            lvMovimientos.setAdapter(adaptadorMovimientos);
+                tvNombreMaterial.setVisibility(getView().INVISIBLE);
+                tvStock.setVisibility(getView().INVISIBLE);
+                tvObra.setVisibility(getView().INVISIBLE);
+                lvMovimientos.setVisibility(getView().INVISIBLE);
+                tvFecha.setVisibility(getView().INVISIBLE);
+                btnAgregarMovimiento.setVisibility(getView().INVISIBLE);
 
-            this.material = material;
+
+            }else{
+
+                tvNombreMaterial.setVisibility(getView().VISIBLE);
+                tvStock.setVisibility(getView().VISIBLE);
+                tvObra.setVisibility(getView().VISIBLE);
+                lvMovimientos.setVisibility(getView().VISIBLE);
+                tvFecha.setVisibility(getView().VISIBLE);
+                btnAgregarMovimiento.setVisibility(getView().VISIBLE);
+
+                tvNombreMaterial.setText(ControladorGral.getMaterialSeleccionado().getNombre());
+                tvStock.setText(String.valueOf(ControladorGral.getMaterialSeleccionado().getStock()));
+                tvObra.setText(String.valueOf(ControladorGral.getObraSeleccionada().getIdObra()));
+
+                AdaptadorMovimientos adaptadorMovimientos = new AdaptadorMovimientos(getActivity(), ControladorGral.getMaterialSeleccionado().getMovimientos());
+                lvMovimientos.setAdapter(adaptadorMovimientos);
+
+            }
 
         }catch(Exception ex){
 

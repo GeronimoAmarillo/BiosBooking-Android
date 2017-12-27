@@ -14,7 +14,6 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
     String mensaje;
 
     private MaterialInfoFragment frgMaterialInfo;
-    DTMaterial material;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +26,13 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
 
             Bundle extras = getIntent().getExtras();
 
-            material = (DTMaterial)extras.getSerializable(MaterialListActivity.EXTRA_MATERIAL);
 
-            mensaje = extras.getString("MENSAJE");
+            if(extras != null){
+                if(extras.getString("MENSAJE") != null){
+                    mensaje = extras.getString("MENSAJE");
 
-            if(mensaje != null){
-                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+                }
             }
 
         }catch(Exception ex){
@@ -49,7 +49,7 @@ public class MaterialInformationActivity extends AppCompatActivity implements Ma
 
         try{
 
-            frgMaterialInfo.mostrarMaterial(material);
+            frgMaterialInfo.mostrarMaterial();
 
         }catch(Exception ex){
 

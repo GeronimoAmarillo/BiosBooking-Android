@@ -59,15 +59,12 @@ public class ControladorMaterial implements Serializable{
             throw new Exception("ERROR: " + ex.getMessage());
         }
 
-
-
     }
 
     public List<DTMaterial> ListarMaterialesXObra(int idObra, SQLiteDatabase db) throws Exception {
         List<DTMaterial> materiales = new ArrayList<DTMaterial>();
 
         DTMaterial material = null;
-
 
         try{
 
@@ -145,7 +142,7 @@ public class ControladorMaterial implements Serializable{
                 try {
                     fecha = formatoFecha.parse(fechaTexto);
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    throw new  Exception("Se produjo un error al convertir la fecha!");
                 }
 
                 movimiento.setFecha(fecha);
