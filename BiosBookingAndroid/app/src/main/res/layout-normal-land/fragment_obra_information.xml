@@ -7,9 +7,10 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvIdObra"
@@ -21,7 +22,8 @@
             android:text="IdObra"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/tvDueñoObra"
@@ -31,9 +33,7 @@
             android:text="Dueño"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvIdObra" />
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/tvDireccionObra"
@@ -43,48 +43,32 @@
             android:text="DireccionObra"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDueñoObra" />
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/tvMetrosCuadrados"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:text="MetrosCuadrados"
-            app:layout_constraintBottom_toTopOf="@+id/tvFechaContrato"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDireccionObra" />
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/tvFechaContrato"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:text="Fecha Contrato"
-            app:layout_constraintBottom_toTopOf="@+id/ivFotoObra"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMetrosCuadrados" />
+            android:layout_gravity="center"/>
 
         <ImageView
             android:id="@+id/ivFotoObra"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="44dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnVerMateriales"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/btnVerMateriales"
@@ -94,11 +78,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="Ir a Materiales"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_gravity="center"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 
 </FrameLayout>
