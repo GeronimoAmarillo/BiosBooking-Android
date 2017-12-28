@@ -1,0 +1,2 @@
+- bold en labels informativas
+- 0 en casillas de stock
