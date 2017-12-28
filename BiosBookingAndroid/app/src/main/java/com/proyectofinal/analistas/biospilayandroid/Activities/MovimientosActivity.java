@@ -1,6 +1,7 @@
 package com.proyectofinal.analistas.biospilayandroid.Activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -146,7 +147,13 @@ public class MovimientosActivity extends AppCompatActivity {
 
             exito = controlador.realizarMovimiento(datosMovimiento, idObra, nombreMaterial, nuevoStock, bd);
 
+
             Intent intencion = new Intent(getApplicationContext(), MaterialInformationActivity.class);
+
+            if(Configuration.SCREENLAYOUT_SIZE_LARGE == getResources().getConfiguration().screenLayout || Configuration.SCREENLAYOUT_SIZE_LARGE == getResources().getConfiguration().screenLayout){
+
+                intencion = new Intent(getApplicationContext(), MaterialListActivity.class);
+            }
 
             if(exito){
                 intencion.putExtra("MENSAJE", "Se realizo el movimiento exitosamente!.");

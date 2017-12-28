@@ -42,7 +42,8 @@
                     android:id="@+id/tvLabelMaterial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre del material: " />
+                    android:text="Nombre del material: "
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tvNombreMaterial"
@@ -61,7 +62,8 @@
                     android:id="@+id/tvLabelStock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Disponibilidad(Stock): " />
+                    android:text="Disponibilidad(Stock): "
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tvStock"
@@ -81,7 +83,8 @@
                 android:id="@+id/tvLabelObra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Identificador de Obra: " />
+                android:text="Identificador de Obra: "
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvObra"
@@ -106,7 +109,8 @@
                     android:id="@+id/tvLabelFecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fecha de ingreso: " />
+                    android:text="Fecha de ingreso: "
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tvFechaIngreso"

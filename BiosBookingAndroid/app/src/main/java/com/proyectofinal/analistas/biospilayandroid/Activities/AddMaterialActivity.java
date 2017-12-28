@@ -115,15 +115,21 @@ public class AddMaterialActivity extends AppCompatActivity implements DatePicker
 
             try{
 
-                materialAagregar.setStock(Integer.parseInt(etStock.getText().toString()));
+                int stock = 0;
+
+                if(!etStock.getText().toString().isEmpty()){
+                    stock = Integer.parseInt(etStock.getText().toString());
+                }
+
+                materialAagregar.setStock(stock);
 
             }catch (Exception ex){
                 throw new Exception("Error al convertir el stock ingresado.");
             }
 
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-            String fechaTexto = etFecha.getText().toString() + " " + etHora.getText().toString();
+            String fechaTexto = etFecha.getText().toString() + " " + etHora.getText().toString() + ":00";
 
             Date fecha = null;
             try {

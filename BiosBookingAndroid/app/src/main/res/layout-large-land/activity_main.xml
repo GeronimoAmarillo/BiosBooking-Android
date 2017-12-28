@@ -19,7 +19,7 @@
             android:id="@+id/frgListadoObras"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
+            android:layout_weight="40"
             android:name="com.proyectofinal.analistas.biospilayandroid.Activities.GridObrasFragment"
             tools:layout="@layout/fragment_grid_obras" />
 
@@ -27,7 +27,7 @@
             android:id="@+id/frgDetalleObra"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="70"
+            android:layout_weight="60"
             android:name="com.proyectofinal.analistas.biospilayandroid.Activities.ObraInformationFragment"
             tools:layout="@layout/fragment_obra_information" />
 

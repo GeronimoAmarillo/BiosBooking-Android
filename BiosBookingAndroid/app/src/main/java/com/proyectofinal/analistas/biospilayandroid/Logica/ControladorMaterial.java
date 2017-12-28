@@ -82,7 +82,7 @@ public class ControladorMaterial implements Serializable{
 
                 material = new DTMaterial();
 
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
                 material.setNombre(cursor.getString(columnaNombre));
                 material.setStock(Integer.parseInt(cursor.getString(columnaStock)));
@@ -130,7 +130,7 @@ public class ControladorMaterial implements Serializable{
 
                 movimiento = new DTMovimiento();
 
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
                 movimiento.setId(cursor.getInt(columnaId));
                 movimiento.setObservacion(cursor.getString(columnaObservacion));

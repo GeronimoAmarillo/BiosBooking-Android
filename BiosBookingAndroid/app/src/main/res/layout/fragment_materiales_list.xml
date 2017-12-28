@@ -37,7 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Filtro:"/>
+                android:text="Filtro:"
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/spFiltro"

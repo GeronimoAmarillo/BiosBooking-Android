@@ -15,7 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Identificador de obra: " />
+            android:text="Identificador de obra: "
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvIdObra"
@@ -34,7 +35,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Direccion de obra: " />
+            android:text="Direccion de obra: "
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvDireccionObra"
